@@ -1,0 +1,60 @@
+{
+    "NONE": "None",
+    "SAVE": "Save",
+    "LOGIN_PAGE":{
+        "LOGIN": "Login",
+        "LOGGING_IN": "Logging in",
+        "FORGOT_PASSWORD": "Forgot Password",
+        "SIGN_IN_BELOW": "Sign-in Below:",
+        "EMAIL": "Email",
+        "E_MAIL": "E-mail",
+        "PASSWORD": "Password",
+        "FORGOT_PASSWORD2": "Forgot Password:",
+        "EMAIL_ADDRESS": "Email Address ",
+        "RETRIEVE_PASSWORD": "Retrieve Password",
+        "RETRIEVING_PASSWORD": "Retrieving Password"    
+    },
+    "ACCOUNT":{
+        "ACCOUNT_NUMBER": "Account Number",
+        "NAME": "Name",
+        "QQ_NUMBER": "QQ Number",
+        "WECHAT": "WeChat",
+        "ACCOUNT_TYPE": "Account Type",
+        "REMAINING_CLASSES": "Remaining Balance",
+        "FREE_TRIAL_CLASS": "Free Trial Balance",
+        "IMMORTAL_BALANCE": "Immortal Balance",
+        "COMPLETED_CLASSES": "Completed Classes",
+        "VALIDITY": "Validity",
+        "PERMANENT": "Non-expiring",
+        "STARTING_DATE": "Start Date"
+    },
+    "ORDERS":{
+        "ORDERS": "Orders",
+        "ORDER_INFORMATION": "Order Information",
+        "SCHOOL_PACKAGE": "School Package",
+        "VOUCHER_CODE": "Voucher Code",
+        "NUMBER_OF_CLASSES": "Number of Classes",
+        "DURATION_IN_DAYS": "Duration in Days",
+        "PRICE": "Price",
+        "BUY_PACKAGE": "Buy Package",
+        "BOUGHT_PACKAGES": "Bought Packages"
+    },
+    "CLASS_SCHEDULE": {
+        "BOOK_CLASS": "Book Class",
+        "CLASS_SCHEDULE": "Class Schedule",
+        "SELECT_WHICH_BALANCE_TO_USE": "Select which balance to use",
+        "SELECT_DATE": "Select Date",
+        "SEARCH": "Search",
+        "TEACHER": "Teacher",
+        "VIEW_SCHEDULE": "View Schedule",
+        "REMAINING_CLASSES": "Remaining Classes",
+        "NO_EXPIRATION": "No-Expiration",
+        "WILL_EXPIRE_ON": "Will expire on:",
+        "GREEN": "Green",
+        "BLUE": "Blue",
+        "RED": "Red",
+        "COMPLETED_CLASS": "Completed Class",
+        "BOOKED_CLASS": "Booked Class",
+        "TEACHER_ABSENT": "Teacher Absent"
+    }
+}
