@@ -15,7 +15,7 @@ class CreateTeachersTable extends Migration
     {
         Schema::create('teachers', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedBigInteger('user_id');
+            $table->char('user_id',36);
             $table->integer('peak1to15')->default(0);
 		    $table->integer('peak16to31')->default(0);
 		    $table->boolean('special_plotting_indefinite')->nullable();

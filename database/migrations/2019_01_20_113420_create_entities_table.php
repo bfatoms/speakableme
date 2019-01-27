@@ -14,9 +14,14 @@ class CreateEntitiesTable extends Migration
     public function up()
     {
         Schema::create('entities', function (Blueprint $table) {
-            $table->increments('id');
+            $table->char('id', 36)->primary()->autoIncrement(false);
+            $table->char('entity_type_id', 36);
             $table->string('name');
+            $table->string('address')->nullable();
             $table->string('prefix', 10)->nullable();
+            $table->boolean('manage_students')->default(0);
+            $table->boolean('manage_teachers')->default(0);
+            $table->boolean('manage_clients')->default(0);
             $table->timestamps();
         });
     }

@@ -12,10 +12,15 @@ use App\BookClass;
 use App\StudentAccountType;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
-
+use App\Http\Requests\CreateUserRequest;
 
 class UserController extends Controller
 {
+    public function create(CreateUserRequest $request)
+    {
+        
+    }
+    
     public function getLanguage($lang = false)
     {
         if($lang != false){
