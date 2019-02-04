@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Role;
+use App\Models\EntityType;
 
 class Entity extends Model
 {
@@ -25,8 +27,13 @@ class Entity extends Model
         'manage_clients' => 'boolean',        
     ];
 
-    public function entity_types()
+    public function entity_type()
     {
-        return $this->belongsTo(\App\Models\EntityType::class);
+        return $this->belongsTo(EntityType::class);
+    }
+
+    public function roles()
+    {
+        return $this->hasMany(Role::class);
     }
 }

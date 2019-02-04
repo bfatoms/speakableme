@@ -47,37 +47,37 @@ class RoleSeeder extends Seeder
         ]);
 
 
-        // FOR KIDSONG
-        $entity = Entity::where('name', 'KidSong')->first();
+        // // FOR KIDSONG
+        // $entity = Entity::where('name', 'KidSong')->first();
 
-        Role::insert([
-            'id' => Str::uuid(),
-            'entity_id' => $entity->id,
-            'system_name' => 'superadmin',
-            'name' => 'Superadmin',
+        // Role::insert([
+        //     'id' => Str::uuid(),
+        //     'entity_id' => $entity->id,
+        //     'system_name' => 'superadmin',
+        //     'name' => 'Superadmin',
 
-        ]);
+        // ]);
 
-        Role::insert([
-            'id' => Str::uuid(),
-            'entity_id' => $entity->id, 
-            'system_name' => 'student',
-            'name' => 'Admin',
-        ]);
+        // Role::insert([
+        //     'id' => Str::uuid(),
+        //     'entity_id' => $entity->id, 
+        //     'system_name' => 'student',
+        //     'name' => 'Admin',
+        // ]);
 
-        Role::insert([
-            'id' => Str::uuid(),
-            'entity_id' => $entity->id, 
-            'system_name' => 'student',
-            'name' => 'Student',
-        ]);
+        // Role::insert([
+        //     'id' => Str::uuid(),
+        //     'entity_id' => $entity->id, 
+        //     'system_name' => 'student',
+        //     'name' => 'Student',
+        // ]);
 
-        Role::insert([
-            'id' => Str::uuid(),
-            'entity_id' => $entity->id, 
-            'system_name' => 'teacher',
-            'name' => 'Teacher',
-        ]);
+        // Role::insert([
+        //     'id' => Str::uuid(),
+        //     'entity_id' => $entity->id, 
+        //     'system_name' => 'teacher',
+        //     'name' => 'Teacher',
+        // ]);
 
     }
 }

@@ -17,51 +17,51 @@ class PermissionSeeder extends Seeder
         // SUPERADMIN PERMISSIONS
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_browse_all',
+            // 'id' => Str::uuid(),
+            'id' => 'can_browse_all',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_create_all',
+            // 'id' => Str::uuid(),
+            'id' => 'can_create_all',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_store_all',
+            // 'id' => Str::uuid(),
+            'id' => 'can_store_all',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_edit_all',
+            // 'id' => Str::uuid(),
+            'id' => 'can_edit_all',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_update_all',
+            // 'id' => Str::uuid(),
+            'id' => 'can_update_all',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_delete_all',
+            // 'id' => Str::uuid(),
+            'id' => 'can_delete_all',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_read_all',
+            // 'id' => Str::uuid(),
+            'id' => 'can_read_all',
             'name' => 'Can Login'
         ]);
 
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_do_action_all',
+            // 'id' => Str::uuid(),
+            'id' => 'can_do_action_all',
             'name' => 'Can Login'
         ]);
 
@@ -69,44 +69,44 @@ class PermissionSeeder extends Seeder
 
         // ROLES
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_browse_role',
+            // 'id' => Str::uuid(),
+            'id' => 'can_browse_role',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_create_role',
+            // 'id' => Str::uuid(),
+            'id' => 'can_create_role',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_store_role',
+            // 'id' => Str::uuid(),
+            'id' => 'can_store_role',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_edit_role',
+            // 'id' => Str::uuid(),
+            'id' => 'can_edit_role',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_update_role',
+            // 'id' => Str::uuid(),
+            'id' => 'can_update_role',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_delete_role',
+            // 'id' => Str::uuid(),
+            'id' => 'can_delete_role',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_read_role',
+            // 'id' => Str::uuid(),
+            'id' => 'can_read_role',
             'name' => 'Can Login'
         ]);
     
@@ -114,44 +114,44 @@ class PermissionSeeder extends Seeder
 
         // PERMISSIONS FOR USERS
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_browse_user',
+            // 'id' => Str::uuid(),
+            'id' => 'can_browse_user',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_create_user',
+            // 'id' => Str::uuid(),
+            'id' => 'can_create_user',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_store_user',
+            // 'id' => Str::uuid(),
+            'id' => 'can_store_user',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_edit_user',
+            // 'id' => Str::uuid(),
+            'id' => 'can_edit_user',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_update_user',
+            // 'id' => Str::uuid(),
+            'id' => 'can_update_user',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_delete_user',
+            // 'id' => Str::uuid(),
+            'id' => 'can_delete_user',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_read_user',
+            // 'id' => Str::uuid(),
+            'id' => 'can_read_user',
             'name' => 'Can Login'
         ]);
 
@@ -159,132 +159,132 @@ class PermissionSeeder extends Seeder
         // SCHEDULE
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_browse_schedule',
+            // 'id' => Str::uuid(),
+            'id' => 'can_browse_schedule',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_create_schedule',
+            // 'id' => Str::uuid(),
+            'id' => 'can_create_schedule',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_store_schedule',
+            // 'id' => Str::uuid(),
+            'id' => 'can_store_schedule',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_edit_schedule',
+            // 'id' => Str::uuid(),
+            'id' => 'can_edit_schedule',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_update_schedule',
+            // 'id' => Str::uuid(),
+            'id' => 'can_update_schedule',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_delete_schedule',
+            // 'id' => Str::uuid(),
+            'id' => 'can_delete_schedule',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_read_schedule',
+            // 'id' => Str::uuid(),
+            'id' => 'can_read_schedule',
             'name' => 'Can Login'
         ]);
 
 
         // ORDERS
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_browse_order',
+            // 'id' => Str::uuid(),
+            'id' => 'can_browse_order',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_create_order',
+            // 'id' => Str::uuid(),
+            'id' => 'can_create_order',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_store_order',
+            // 'id' => Str::uuid(),
+            'id' => 'can_store_order',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_edit_order',
+            // 'id' => Str::uuid(),
+            'id' => 'can_edit_order',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_update_order',
+            // 'id' => Str::uuid(),
+            'id' => 'can_update_order',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_delete_order',
+            // 'id' => Str::uuid(),
+            'id' => 'can_delete_order',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_read_order',
+            // 'id' => Str::uuid(),
+            'id' => 'can_read_order',
             'name' => 'Can Login'
         ]);
 
 
         // user profiles
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_browse_profile',
+            // 'id' => Str::uuid(),
+            'id' => 'can_browse_profile',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_create_profile',
+            // 'id' => Str::uuid(),
+            'id' => 'can_create_profile',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_store_profile',
+            // 'id' => Str::uuid(),
+            'id' => 'can_store_profile',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_edit_profile',
+            // 'id' => Str::uuid(),
+            'id' => 'can_edit_profile',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_update_profile',
+            // 'id' => Str::uuid(),
+            'id' => 'can_update_profile',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_delete_profile',
+            // 'id' => Str::uuid(),
+            'id' => 'can_delete_profile',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_read_profile',
+            // 'id' => Str::uuid(),
+            'id' => 'can_read_profile',
             'name' => 'Can Login'
         ]);
 
@@ -293,50 +293,50 @@ class PermissionSeeder extends Seeder
 
         // CUSTOM PERMISSIONS
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_login',
+            // 'id' => Str::uuid(),
+            'id' => 'can_login',
             'name' => 'Can Login'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_book_schedule',
+            // 'id' => Str::uuid(),
+            'id' => 'can_book_schedule',
             'name' => 'Can Book Schedule'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_open_schedule',
+            // 'id' => Str::uuid(),
+            'id' => 'can_open_schedule',
             'name' => 'Can Open Schedule'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_view_student_profile',
+            // 'id' => Str::uuid(),
+            'id' => 'can_view_student_profile',
             'name' => 'Can View Student Profile'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_view_teacher_profile',
+            // 'id' => Str::uuid(),
+            'id' => 'can_view_teacher_profile',
             'name' => 'Can View Student Profile'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_view_other_profile',
+            // 'id' => Str::uuid(),
+            'id' => 'can_view_other_profile',
             'name' => 'Can View Student Profile'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_assign_role',
+            // 'id' => Str::uuid(),
+            'id' => 'can_assign_role',
             'name' => 'Can Assign Roles to users'
         ]);
 
         Permission::insert([
-            'id' => Str::uuid(),
-            'system_name' => 'can_assign_permission',
+            // 'id' => Str::uuid(),
+            'id' => 'can_assign_permission',
             'name' => 'Can Assign Permissions to users'
         ]);
 

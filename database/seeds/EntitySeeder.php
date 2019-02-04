@@ -25,14 +25,14 @@ class EntitySeeder extends Seeder
             'manage_clients' => true,
         ]);
 
-        Entity::create([
-            'id' => Str::uuid(),
-            'entity_type_id' => EntityType::where('name', 'School')->first()->id,
-            'name' => 'KidSong',
-            'prefix' => 'KS',
-            'manage_students' => true,
-            'manage_teachers' => false,
-            'manage_clients' => false,
-        ]);
+        // Entity::create([
+        //     'id' => Str::uuid(),
+        //     'entity_type_id' => EntityType::where('name', 'School')->first()->id,
+        //     'name' => 'KidSong',
+        //     'prefix' => 'KS',
+        //     'manage_students' => true,
+        //     'manage_teachers' => false,
+        //     'manage_clients' => false,
+        // ]);
     }
 }

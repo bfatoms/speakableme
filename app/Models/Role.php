@@ -20,4 +20,14 @@ class Role extends Model
         'entity_id' => 'string'
     ];
 
+    public function role_permissions()
+    {
+        return $this->hasMany(App\Models\RolePermission::class);
+    }
+
+    public function users()
+    {
+        return $this->hasMany(App\Models\User::class);
+    }
+
 }

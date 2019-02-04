@@ -36,9 +36,11 @@ class AuthController extends Controller
             throw new \Exception("Unauthorized User", 401);
         }
 
-        if($this->roles[auth()->user()->role_id] != request('role')){
-            throw new \Exception("Unauthorized User", 401);
-        }
+        // if($this->roles[auth()->user()->role_id] != request('role')){
+        //     throw new \Exception("Unauthorized User", 401);
+        // }
+
+
 
         return $this->respondWithToken($token,"Logged in successfully!");
     }
@@ -50,6 +52,7 @@ class AuthController extends Controller
      */
     public function me()
     {
+        // get user info
         $user = auth()->user();
         if(request('role') === "student"){
             $user = collect($user)->except(['bank_name',

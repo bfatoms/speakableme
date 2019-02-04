@@ -13,7 +13,7 @@ class Controller extends BaseController
 
     public $message;
 
-    public function response(string $message, $response){
+    public function response($response,string $message){
 
         return [
             "message" => $message,

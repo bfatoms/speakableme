@@ -20,4 +20,9 @@ class Permission extends Model
         'id' => 'string'
     ];
 
+    public function role_permissions()
+    {
+        return $this->hasMany(App\Models\RolePermission::class);
+    }
+
 }

@@ -4,22 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class RolePermission extends Model
+class UserPermission extends Model
 {
-
     protected $casts = [
         'allowed' => 'boolean',
-        'role_id' => 'string',
-        'permission_id' => 'string'
+        'permission_id' => 'string',
+        'user_id' => 'string'
     ];
 
-    public function role()
+    public function user()
     {
-        return $this->belongsTo(App\Models\Role::class);
+        return $this->belongsTo(App\Models\User::class);
     }
 
     public function permission()
     {
         return $this->belongsTo(App\Models\Permission::class);
     }
+
 }
