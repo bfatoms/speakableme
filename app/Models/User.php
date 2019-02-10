@@ -6,15 +6,18 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Traits\EventLoggable;
+use App\Models\Entity;
 use App\Models\Role;
 
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use App\Traits\Filterable;
+
 
 class User extends Authenticatable implements JwtSubject
 {
     public $incrementing = false;
 
-    use Notifiable, EventLoggable;
+    use Notifiable, EventLoggable, Filterable;
 
     /**
      * The attributes that are mass assignable.
@@ -42,6 +45,11 @@ class User extends Authenticatable implements JwtSubject
      */
     public $hidden = [
         'password','remember_token',
+        'peak1to15', 'peak16to31', 'special_plotting_indefinite', 
+        'special_plotting', 'teacher_account_type_id', 'bank_name',
+        'bank_account_number', 'bank_account_name', 'base_rate',
+        'immortal', 'student_account_type_id', 'trial_balance', 'trial_validity'
+
     ];
 
     public function getJWTIdentifier() {
@@ -56,4 +64,11 @@ class User extends Authenticatable implements JwtSubject
     {
         return $this->belongsTo(Role::class);
     }
+    
+    public function entity()
+    {
+        return $this->belongsTo(Entity::class);
+    }
+    
+
 }

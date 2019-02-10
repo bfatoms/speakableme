@@ -19,7 +19,7 @@ use Illuminate\Http\Request;
 
 Route::group(['middleware' => ['api']], function ($router) {
     // book-classes/910
-    Route::group(['prefix'=>"auth"], function(){
+    Route::group(['prefix' => 'auth'], function(){
         Route::post('login', 'AuthController@login');
         Route::post('refresh', 'AuthController@refresh');
 

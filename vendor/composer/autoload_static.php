@@ -139,6 +139,7 @@ class ComposerStaticInitd8f45afb36e7af8977eac009efd54e30
         ),
         'E' => 
         array (
+            'EloquentFilter\\' => 15,
             'Egulias\\EmailValidator\\' => 23,
         ),
         'D' => 
@@ -376,6 +377,10 @@ class ComposerStaticInitd8f45afb36e7af8977eac009efd54e30
         array (
             0 => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker',
         ),
+        'EloquentFilter\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/tucker-eric/eloquentfilter/src',
+        ),
         'Egulias\\EmailValidator\\' => 
         array (
             0 => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator',
@@ -479,6 +484,7 @@ class ComposerStaticInitd8f45afb36e7af8977eac009efd54e30
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Requests\\CreateUserRequest' => __DIR__ . '/../..' . '/app/Http/Requests/CreateUserRequest.php',
+        'App\\Http\\Requests\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/LoginRequest.php',
         'App\\Jobs\\SendEmailJob' => __DIR__ . '/../..' . '/app/Jobs/SendEmailJob.php',
         'App\\Jobs\\SendRegistrationEmail' => __DIR__ . '/../..' . '/app/Jobs/SendRegistrationEmail.php',
         'App\\Jobs\\SystemLogger' => __DIR__ . '/../..' . '/app/Jobs/SystemLogger.php',
@@ -641,6 +647,11 @@ class ComposerStaticInitd8f45afb36e7af8977eac009efd54e30
         'Egulias\\EmailValidator\\Warning\\QuotedString' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/Warning/QuotedString.php',
         'Egulias\\EmailValidator\\Warning\\TLD' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/Warning/TLD.php',
         'Egulias\\EmailValidator\\Warning\\Warning' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/Warning/Warning.php',
+        'EloquentFilter\\Commands\\MakeEloquentFilter' => __DIR__ . '/..' . '/tucker-eric/eloquentfilter/src/Commands/MakeEloquentFilter.php',
+        'EloquentFilter\\Filterable' => __DIR__ . '/..' . '/tucker-eric/eloquentfilter/src/Filterable.php',
+        'EloquentFilter\\LumenServiceProvider' => __DIR__ . '/..' . '/tucker-eric/eloquentfilter/src/LumenServiceProvider.php',
+        'EloquentFilter\\ModelFilter' => __DIR__ . '/..' . '/tucker-eric/eloquentfilter/src/ModelFilter.php',
+        'EloquentFilter\\ServiceProvider' => __DIR__ . '/..' . '/tucker-eric/eloquentfilter/src/ServiceProvider.php',
         'EntitySeeder' => __DIR__ . '/../..' . '/database/seeds/EntitySeeder.php',
         'EntityTypeSeeder' => __DIR__ . '/../..' . '/database/seeds/EntityTypeSeeder.php',
         'Faker\\Calculator\\Iban' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Calculator/Iban.php',

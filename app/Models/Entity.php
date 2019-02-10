@@ -5,9 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Role;
 use App\Models\EntityType;
+use App\Models\Filterable;
 
 class Entity extends Model
 {
+    // use Filterable;
+
     public $incrementing = false;
     
     protected $fillable = [

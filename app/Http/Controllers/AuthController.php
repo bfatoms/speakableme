@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use PHPUnit\Framework\MockObject\Stub\Exception;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
-use App\Student;
-use App\User;
+use App\Models\Student;
+use App\Models\User;
+use App\Http\Requests\LoginRequest;
+use App\Models\Role;
 
 class AuthController extends Controller
 {
@@ -28,26 +30,42 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login()
+    public function login(LoginRequest $request)
     {
+        // check if user can login
         $credentials = request(['email', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
             throw new \Exception("Unauthorized User", 401);
         }
 
-        // get user class from system_name in roles
+        
+        $data = array_merge(
+            ["token" => $this->getToken($token) ],
+            ["user" => $this->getUser()->toArray() ]
+        );
 
-        // $user = $this->getUser();
-
-        dd(auth()->user()->roles());
-
-        return $this->respondWithToken($token, "Logged in successfully!");
+        return $this->respond($data, "Logged in successfully!");
     }
 
-    public function getUser($class)
+    public function getUser()
     {
-        return $class::first(auth()->user());
+        // get current user role system name
+        $role = Role::find(auth()->user()->role_id);
+        switch($role->system_name){
+            case 'student':
+            case 'teacher':
+                break;
+            default:
+            {
+                $role->system_name = 'user';
+                break;            
+            } 
+        }
+
+        $reflect = new \ReflectionClass('App\Models\\' . ucfirst($role->system_name));
+        $class = $reflect->newInstance();
+        return $class::find(auth()->user())->first();
     }
 
     /**
@@ -57,10 +75,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-        // get user info
-        $user = auth()->user();
-        
-        return $this->response($user, "OK");   
+        return $this->respond($this->getUser(), "OK");   
     }
 
     /**
@@ -71,7 +86,7 @@ class AuthController extends Controller
     public function logout()
     {
         auth()->invalidate();
-        return $this->response("Successfuly Logged Out",[]);
+        return $this->respond([],"Successfuly Logged Out");
     }
 
     /**
@@ -81,7 +96,7 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken(auth()->refresh());
+        return $this->respond(auth()->refresh());
     }
 
     /**
@@ -91,13 +106,13 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function respondWithToken($token, $message="")
+    protected function getToken($token)
     {
-        return $this->response($message, [
+        return [
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60
-        ]);
+        ];
     }
 
 }

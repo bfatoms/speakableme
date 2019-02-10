@@ -30,4 +30,14 @@ class Role extends Model
         return $this->hasMany(App\Models\User::class);
     }
 
+    public function students()
+    {
+        return $this->hasMany(App\Models\User::class);
+    }
+
+    public function teachers()
+    {
+        return $this->hasMany(App\Models\User::class);
+    }
+
 }

@@ -45,16 +45,6 @@ return [
             'driver' => 'jwt',
             'provider' => 'users',
         ],
-
-        'student' => [
-            'driver' => 'jwt',
-            'provider' => 'students',
-        ],
-
-        'teacher' => [
-            'driver' => 'jwt',
-            'provider' => 'teachers',
-        ],
     ],
 
     /*
@@ -77,15 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
-        'students' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Student::class,
-        ],
-        'teachers' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Teacher::class,
+            'model' => \App\Models\User::class,
         ]
         // 'users' => [
         //     'driver' => 'database',
@@ -113,17 +95,7 @@ return [
             'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,
-        ],
-        'students' => [
-            'provider' => 'students',
-            'table' => 'password_resets',
-            'expire' => 60,
-        ],
-        'teachers' => [
-            'provider' => 'teachers',
-            'table' => 'password_resets',
-            'expire' => 60,
-        ],
+        ]
     ],
 
 ];
