@@ -1,7 +1,5 @@
 <?php
 
 return [
-    'superadmin' => [
-        'head'
-    ]
+    "registration_header" => ":entity_name invites you to start an online learning journey.",
 ];

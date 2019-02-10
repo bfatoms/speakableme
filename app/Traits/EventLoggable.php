@@ -4,7 +4,7 @@ namespace App\Traits;
 use App\Models\SystemEvent;
 
 
-class EventLoggable
+trait EventLoggable
 {
     public function logs()
     {

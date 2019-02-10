@@ -6,6 +6,14 @@ use App\Models\Role;
 use App\Models\RolePermission;
 use App\Models\Permission;
 use Illuminate\Support\Str;
+use App\Models\User;
+use App\Models\SystemLog;
+use App\Jobs\SystemLogger;
+
+use Illuminate\Support\Facades\Hash;
+use App\Jobs\SendRegistrationEmail;
+
+use App\Events\UserRegisteredEvent;
 
 class EntityObserver
 {
@@ -20,8 +28,8 @@ class EntityObserver
         ]);
 
         $this->createRolePermissions($role);
-        $user = $this->createUser($entity);
-        $this->createUserRole();
+        $user = $this->createUser($entity, $role);
+        // $this->createUserRole();
 
         // create student permission if manage_users === true
         if($entity->manage_students === true){
@@ -64,12 +72,44 @@ class EntityObserver
         $password = str_random(18);
 
         $data = User::create([
+            'id' => Str::uuid(),
             'email' => $entity->default_email,
             'password' => Hash::make($password),
+            'entity_id' => $entity->id,
             'lang' => $entity->default_lang,
-            'role_id' => $role->id
+            'timezone' => $entity->default_timezone,
+            'role_id' => $role->id,
         ]);
-        // send Registration Data 
+
+        SystemLogger::dispatch([
+            'actor_id' => (empty(auth()->user())) ? 0: auth()->user()->id,
+            'actor' => ( empty(auth()->user()) ) ? 'system' : 'user',
+            'description' => "A new User with email". $data['email'] ." was created for Entity ".$entity->name,
+            'system_loggable_id' => $data['id'],
+            'system_loggable_type' => 'user',
+            'data' => json_encode($data)
+        ])
+        ->delay(now()->addSeconds(5));
+
+
+        $email_data = array_merge(['users' => $data], ["entity"=>$entity]);
+        
+        // send Registration Data to email
+        SendRegistrationEmail::dispatch($email_data['users']->email, $email_data)
+            ->delay(now()->addSeconds(3));
+
+        SystemLogger::dispatch([
+            'actor_id' => (empty(auth()->user())) ? 0: auth()->user()->id,
+            'actor' => ( empty(auth()->user()) ) ? 'system' : 'user',
+            'description' => "Registration email was sent to ". $data['email'],
+            'system_loggable_id' => $data['id'],
+            'system_loggable_type' => 'user',
+            'data' => json_encode($data)
+        ])
+        ->delay(now()->addSeconds(5));
+        
+
+        return $data;
     }
 
 }

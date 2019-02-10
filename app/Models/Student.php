@@ -2,39 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\User;
 
-use Tymon\JWTAuth\Contracts\JWTSubject;
-
-class Student extends Authenticatable implements JwtSubject
+class Student extends User
 {
-    use Notifiable;
+    public function __construct()
+    {
+        parent::__construct();
+        $this->hidden = array_merge($this->fillable, [
+            'peak1to15', 'peak16to31', 'special_plotting_indefinite', 
+            'special_plotting', 'teacher_account_type_id', 'bank_name',
+            'bank_account_number', 'bank_account_name', 'base_rate'
+        ]);
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-
-    public function getJWTIdentifier() {
-        return $this->getKey();
-    }
-    
-    public function getJWTCustomClaims() {
-        return [];
+        $this->fillable = array_merge($this->hidden, [
+            'immortal', 'student_account_type_id', 'trial_balance', 'trial_validity'
+        ]);
     }
 }

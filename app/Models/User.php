@@ -5,29 +5,42 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Traits\EventLoggable;
 
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JwtSubject
 {
-    use Notifiable;
+    public $incrementing = false;
+
+    use Notifiable, EventLoggable;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password',
+    public $fillable = [
+        'name', 'email', 'password', 'role_id', 'entity_id',
+        'first_name', 'last_name', 'middle_name', 'nick',
+        'email', 'avatar', 'password', 'remember_token',
+        'gender', 'qq', 'mobile', 'wechat', 'address',
+        'timezone', 'lang', 'birth_date', 'disabled', 
+        'password_changed'
     ];
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
+    
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
+    public $hidden = [
+        'password','remember_token',
     ];
 
     public function getJWTIdentifier() {

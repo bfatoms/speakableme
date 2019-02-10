@@ -24,6 +24,7 @@ class CreateEntitiesTable extends Migration
             $table->boolean('manage_clients')->default(0);
             $table->string('default_email');
             $table->string('default_lang')->default('en');
+            $table->string('default_timezone')->default('Asia/Manila');
             $table->timestamps();
         });
     }

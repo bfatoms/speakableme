@@ -7,11 +7,15 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use App\Mail\RegistrationEmail;
+use Mail;
 
-class SendRegistrationEmailJob implements ShouldQueue
+class SendRegistrationEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public $data;
+    public $email;
     /**
      * Create a new job instance.
      *
@@ -30,6 +34,13 @@ class SendRegistrationEmailJob implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->email)->send(new CreateUser($this->data));
+        Mail::to($this->email)
+            ->locale($this->data['users']->lang)
+            ->send(new RegistrationEmail($this->data));
+    }
+
+    public function failed()
+    {
+        //
     }
 }

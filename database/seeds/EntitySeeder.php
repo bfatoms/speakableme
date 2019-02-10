@@ -23,17 +23,9 @@ class EntitySeeder extends Seeder
             'manage_students' => true,
             'manage_teachers' => true,
             'manage_clients' => true,
-            'default_email' => 'forondalouie@gmail.com'
+            'default_email' => 'forondalouie@gmail.com',
+            'default_lang' => 'en',
+            'default_timezone' => 'Asia/Manila'
         ]);
-
-        // Entity::create([
-        //     'id' => Str::uuid(),
-        //     'entity_type_id' => EntityType::where('name', 'School')->first()->id,
-        //     'name' => 'KidSong',
-        //     'prefix' => 'KS',
-        //     'manage_students' => true,
-        //     'manage_teachers' => false,
-        //     'manage_clients' => false,
-        // ]);
     }
 }
