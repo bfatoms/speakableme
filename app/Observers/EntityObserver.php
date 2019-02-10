@@ -81,32 +81,36 @@ class EntityObserver
             'role_id' => $role->id,
         ]);
 
-        SystemLogger::dispatch([
-            'actor_id' => (empty(auth()->user())) ? 0: auth()->user()->id,
-            'actor' => ( empty(auth()->user()) ) ? 'system' : 'user',
-            'description' => "A new User with email". $data['email'] ." was created for Entity ".$entity->name,
-            'system_loggable_id' => $data['id'],
-            'system_loggable_type' => 'user',
-            'data' => json_encode($data)
-        ])
-        ->delay(now()->addSeconds(5));
+        // SystemLogger::dispatch([
+        //     'actor_id' => (empty(auth()->user())) ? 0: auth()->user()->id,
+        //     'actor' => ( empty(auth()->user()) ) ? 'system' : 'user',
+        //     'description' => "A new User with email". $data['email'] ." was created for Entity ".$entity->name,
+        //     'system_loggable_id' => $data['id'],
+        //     'system_loggable_type' => 'user',
+        //     'data' => json_encode($data)
+        // ])
+        // ->delay(now()->addSeconds(5));
 
 
-        $email_data = array_merge(['users' => $data], ["entity"=>$entity]);
+        $email_data = array_merge(
+            ['users' => $data],
+            ['entity' => $entity],
+            ['password'=> $password]
+        );
         
         // send Registration Data to email
         SendRegistrationEmail::dispatch($email_data['users']->email, $email_data)
-            ->delay(now()->addSeconds(3));
+            ->delay(now()->addSeconds(10));
 
-        SystemLogger::dispatch([
-            'actor_id' => (empty(auth()->user())) ? 0: auth()->user()->id,
-            'actor' => ( empty(auth()->user()) ) ? 'system' : 'user',
-            'description' => "Registration email was sent to ". $data['email'],
-            'system_loggable_id' => $data['id'],
-            'system_loggable_type' => 'user',
-            'data' => json_encode($data)
-        ])
-        ->delay(now()->addSeconds(5));
+        // SystemLogger::dispatch([
+        //     'actor_id' => (empty(auth()->user())) ? 0: auth()->user()->id,
+        //     'actor' => ( empty(auth()->user()) ) ? 'system' : 'user',
+        //     'description' => "Registration email was sent to ". $data['email'],
+        //     'system_loggable_id' => $data['id'],
+        //     'system_loggable_type' => 'user',
+        //     'data' => json_encode($data)
+        // ])
+        // ->delay(now()->addSeconds(3));
         
 
         return $data;

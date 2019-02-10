@@ -19,7 +19,7 @@ class AuthController extends Controller
     
     public function __construct()
     {
-        $this->roles = config('app.roles');
+        // $this->roles = config('app.roles');
         $this->middleware('auth:api', ['except' => ['login']]);
     }
 
@@ -36,13 +36,18 @@ class AuthController extends Controller
             throw new \Exception("Unauthorized User", 401);
         }
 
-        // if($this->roles[auth()->user()->role_id] != request('role')){
-        //     throw new \Exception("Unauthorized User", 401);
-        // }
+        // get user class from system_name in roles
 
+        $user = $this->getUser();
 
+        dd(auth()->user()->roles());
 
         return $this->respondWithToken($token,"Logged in successfully!");
+    }
+
+    public function getUser()
+    {
+        return $class::first(auth()->user());
     }
 
     /**
@@ -54,22 +59,8 @@ class AuthController extends Controller
     {
         // get user info
         $user = auth()->user();
-        if(request('role') === "student"){
-            $user = collect($user)->except(['bank_name',
-            'bank_account_number',
-            'peak1to15',
-            'peak16to31',
-            'password_changed',
-            'special_plotting_indefinite',
-            'teacher_account_type_id',
-            'special_plotting',
-            'bank_account_name',
-            'settings',
-            'password'
-            ]);
-        }
-
-        return $this->response("OK", $user);   
+        
+        return $this->response($user, "OK");   
     }
 
     /**

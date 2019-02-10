@@ -11,12 +11,12 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function respond($result, $message)
+    public function respond($result, $message="")
     {
-        return $this->response()->json([
-            'success' => (http_status_code() > 230) ? false:true,
+        return response()->json([
+            'success' => (\http_response_code() > 230) ? false:true,
             'message' => __($message),
             'result' => $result,
-        ], http_status_code());
+        ], \http_response_code());
     }
 }
