@@ -8,7 +8,6 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\Mail\RegistrationEmail;
-use Mail;
 
 class SendRegistrationEmail implements ShouldQueue
 {
@@ -34,9 +33,14 @@ class SendRegistrationEmail implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->email)
+        try{
+            \Mail::to($this->email)
             ->locale($this->data['users']->lang)
             ->send(new RegistrationEmail($this->data));
+        }
+        catch(\Exception $ex){
+            logger(json_encode($ex));
+        }
     }
 
     public function failed()

@@ -38,14 +38,14 @@ class AuthController extends Controller
 
         // get user class from system_name in roles
 
-        $user = $this->getUser();
+        // $user = $this->getUser();
 
         dd(auth()->user()->roles());
 
-        return $this->respondWithToken($token,"Logged in successfully!");
+        return $this->respondWithToken($token, "Logged in successfully!");
     }
 
-    public function getUser()
+    public function getUser($class)
     {
         return $class::first(auth()->user());
     }

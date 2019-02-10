@@ -1,2 +1,2 @@
-{!! json_encode($data) !!}
-<BR><BR><BR><BR><BR><BR>
+{!! $data['password'] !!}<br/>
+{!! $data['users']->email !!}

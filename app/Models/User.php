@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Traits\EventLoggable;
+use App\Models\Role;
 
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
@@ -49,5 +50,10 @@ class User extends Authenticatable implements JwtSubject
     
     public function getJWTCustomClaims() {
         return [];
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
 }
