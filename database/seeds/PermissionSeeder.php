@@ -18,96 +18,139 @@ class PermissionSeeder extends Seeder
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_browse_all',
-            'name' => 'Can Login'
+            'id' => 'browse-all',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_create_all',
-            'name' => 'Can Login'
+            'id' => 'create-all',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_store_all',
-            'name' => 'Can Login'
+            'id' => 'store-all',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_edit_all',
-            'name' => 'Can Login'
+            'id' => 'edit-all',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_update_all',
-            'name' => 'Can Login'
+            'id' => 'update-all',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_delete_all',
-            'name' => 'Can Login'
+            'id' => 'delete-all',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_read_all',
-            'name' => 'Can Login'
+            'id' => 'read-all',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_do_action_all',
-            'name' => 'Can Login'
+            'id' => 'do-all',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
-
-
 
         // ROLES
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_browse_role',
-            'name' => 'Can Login'
+            'id' => 'browse-role',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_create_role',
-            'name' => 'Can Login'
+            'id' => 'create-role',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_store_role',
-            'name' => 'Can Login'
+            'id' => 'store-role',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_edit_role',
-            'name' => 'Can Login'
+            'id' => 'edit-role',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_update_role',
-            'name' => 'Can Login'
+            'id' => 'update-role',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_delete_role',
-            'name' => 'Can Login'
+            'id' => 'delete-role',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_read_role',
-            'name' => 'Can Login'
+            'id' => 'read-role',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
     
 
@@ -115,44 +158,450 @@ class PermissionSeeder extends Seeder
         // PERMISSIONS FOR USERS
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_browse_user',
-            'name' => 'Can Login'
+            'id' => 'browse-user',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_create_user',
-            'name' => 'Can Login'
+            'id' => 'create-user',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_store_user',
-            'name' => 'Can Login'
+            'id' => 'store-user',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_edit_user',
-            'name' => 'Can Login'
+            'id' => 'edit-user',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_update_user',
-            'name' => 'Can Login'
+            'id' => 'update-user',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_delete_user',
-            'name' => 'Can Login'
+            'id' => 'delete-user',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_read_user',
-            'name' => 'Can Login'
+            'id' => 'read-user',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
+        ]);
+
+        // PERMISSIONS FOR students
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'browse-student',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'create-student',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'store-student',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'edit-student',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'update-student',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'delete-student',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'read-student',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => false,
+        ]);
+
+        // PERMISSIONS FOR teachers
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'browse-teacher',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => true,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'create-teacher',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => true,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'store-teacher',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => true,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'edit-teacher',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => true,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'update-teacher',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => true,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'delete-teacher',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => true,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'read-teacher',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => true,
+        ]);
+
+        // PERMISSIONS FOR base packages
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'browse-package',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'create-package',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'store-package',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'edit-package',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'update-package',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'delete-package',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'read-package',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => false,
+        ]);
+
+        // PERMISSIONS FOR entity packages
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'browse-entity-package',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'create-entity-package',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'store-entity-package',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'edit-entity-package',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'update-entity-package',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'delete-entity-package',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'read-entity-package',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => false,
+        ]);
+
+        // PERMISSIONS FOR entity
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'browse-entity',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'create-entity',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'store-entity',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'edit-entity',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'update-entity',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'delete-entity',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'read-entity',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => false,
+        ]);
+
+
+        // PERMISSIONS FOR entity types
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'browse-entity-type',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'create-entity-type',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'store-entity-type',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'edit-entity-type',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'update-entity-type',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'delete-entity-type',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => false,
+        ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'read-entity-type',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => false,
         ]);
 
 
@@ -160,184 +609,279 @@ class PermissionSeeder extends Seeder
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_browse_schedule',
-            'name' => 'Can Login'
+            'id' => 'browse-schedule',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_create_schedule',
-            'name' => 'Can Login'
+            'id' => 'create-schedule',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_store_schedule',
-            'name' => 'Can Login'
+            'id' => 'store-schedule',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_edit_schedule',
-            'name' => 'Can Login'
+            'id' => 'edit-schedule',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_update_schedule',
-            'name' => 'Can Login'
+            'id' => 'update-schedule',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_delete_schedule',
-            'name' => 'Can Login'
+            'id' => 'delete-schedule',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_read_schedule',
-            'name' => 'Can Login'
+            'id' => 'read-schedule',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
 
         // ORDERS
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_browse_order',
-            'name' => 'Can Login'
+            'id' => 'browse-order',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => false,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_create_order',
-            'name' => 'Can Login'
+            'id' => 'create-order',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => false,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_store_order',
-            'name' => 'Can Login'
+            'id' => 'store-order',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => false,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_edit_order',
-            'name' => 'Can Login'
+            'id' => 'edit-order',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => false,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_update_order',
-            'name' => 'Can Login'
+            'id' => 'update-order',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => false,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_delete_order',
-            'name' => 'Can Login'
+            'id' => 'delete-order',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => false,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_read_order',
-            'name' => 'Can Login'
+            'id' => 'read-order',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => false,
         ]);
+
+        Permission::insert([
+            // 'id' => Str::uuid(),
+            'id' => 'approve-order',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => false,
+        ]);
+
+        
 
 
         // user profiles
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_browse_profile',
-            'name' => 'Can Login'
+            'id' => 'browse-profile',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_create_profile',
-            'name' => 'Can Login'
+            'id' => 'create-profile',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_store_profile',
-            'name' => 'Can Login'
+            'id' => 'store-profile',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_edit_profile',
-            'name' => 'Can Login'
+            'id' => 'edit-profile',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_update_profile',
-            'name' => 'Can Login'
+            'id' => 'update-profile',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_delete_profile',
-            'name' => 'Can Login'
+            'id' => 'delete-profile',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_read_profile',
-            'name' => 'Can Login'
+            'id' => 'read-profile',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
-
-
-
 
         // CUSTOM PERMISSIONS
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_login',
-            'name' => 'Can Login'
+            'id' => 'login',
+            'name' => 'Can Login',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_book_schedule',
-            'name' => 'Can Book Schedule'
+            'id' => 'book-schedule',
+            'name' => 'Can Book Schedule',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => false,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_open_schedule',
+            'id' => 'open-schedule',
+            'manage_clients' => true,
+            'manage_students' => false,
+            'manage_teachers' => true,
             'name' => 'Can Open Schedule'
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_view_student_profile',
-            'name' => 'Can View Student Profile'
+            'id' => 'view-student-profile',
+            'name' => 'Can View Student Profile',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_view_teacher_profile',
-            'name' => 'Can View Student Profile'
+            'id' => 'view-teacher-profile',
+            'name' => 'Can View Student Profile',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_view_other_profile',
-            'name' => 'Can View Student Profile'
+            'id' => 'view-other-profile',
+            'name' => 'Can View Student Profile',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_assign_role',
-            'name' => 'Can Assign Roles to users'
+            'id' => 'assign-role',
+            'name' => 'Can Assign Roles to users',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
         Permission::insert([
             // 'id' => Str::uuid(),
-            'id' => 'can_assign_permission',
-            'name' => 'Can Assign Permissions to users'
+            'id' => 'assign-permission',
+            'name' => 'Can Assign Permissions to users',
+            'manage_clients' => true,
+            'manage_students' => true,
+            'manage_teachers' => true,
         ]);
 
 

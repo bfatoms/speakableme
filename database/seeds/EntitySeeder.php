@@ -23,6 +23,7 @@ class EntitySeeder extends Seeder
             'manage_students' => true,
             'manage_teachers' => true,
             'manage_clients' => true,
+            'default_email' => 'forondalouie@gmail.com'
         ]);
 
         // Entity::create([

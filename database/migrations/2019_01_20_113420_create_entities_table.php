@@ -22,6 +22,8 @@ class CreateEntitiesTable extends Migration
             $table->boolean('manage_students')->default(0);
             $table->boolean('manage_teachers')->default(0);
             $table->boolean('manage_clients')->default(0);
+            $table->string('default_email');
+            $table->string('default_lang')->default('en');
             $table->timestamps();
         });
     }

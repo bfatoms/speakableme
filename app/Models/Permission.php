@@ -13,11 +13,17 @@ class Permission extends Model
 
     protected $fillable = [
         'system_name',
-        'name'
+        'name',
+        'manage_teachers',
+        'manage_students',
+        'manage_clients'
     ];
     
     protected $casts = [
-        'id' => 'string'
+        'id' => 'string',
+        'manage_teachers' => 'boolean',
+        'manage_students' => 'boolean',
+        'manage_clients' => 'boolean',
     ];
 
     public function role_permissions()

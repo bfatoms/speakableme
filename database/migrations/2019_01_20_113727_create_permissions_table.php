@@ -16,6 +16,9 @@ class CreatePermissionsTable extends Migration
         Schema::create('permissions', function (Blueprint $table) {
             $table->char('id', 100)->primary();
             $table->string('name');
+            $table->boolean('manage_clients')->default(false);
+            $table->boolean('manage_students')->default(false);
+            $table->boolean('manage_teachers')->default(false);
             $table->timestamps();
         });
     }

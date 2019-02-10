@@ -123,14 +123,6 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
-    'roles' => [
-        '1' => 'superadmin',
-        '2' => 'student',
-        '3' => 'admin',
-        '4' => 'client',
-        '5' => 'teacher'
-    ],
-
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -231,6 +223,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
     ],
 
 ];

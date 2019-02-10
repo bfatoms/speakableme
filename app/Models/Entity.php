@@ -18,6 +18,7 @@ class Entity extends Model
         'manage_students',
         'manage_teachers',
         'manage_clients',
+        'default_email'
     ];
 
     protected $casts = [

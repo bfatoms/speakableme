@@ -29,7 +29,7 @@ class CreateUser extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->view('emails.create_user', compact($this->data))->subject("Speakable Me invites you to start an english learning journey.");
+        return $this->view('emails.create_user', compact($this->data))->subject(__("Speakable Me invites you to start an english learning journey."));
     }
     
 }
