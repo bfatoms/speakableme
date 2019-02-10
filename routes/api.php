@@ -27,10 +27,13 @@ Route::group(['middleware' => ['api']], function ($router) {
             Route::post('logout', 'AuthController@logout');
             Route::get('me', 'AuthController@me');
         });
+
+
     });
 
 
     Route::group(['middleware'=>'jwtchecker'], function(){
+        Route::resource('entities', 'EntityController');
         Route::get('student/balance', "UserController@getBalance");
         Route::get('student/schedule', "UserController@getClassSchedule");
         Route::get('student/language', 'UserController@getLanguage');
