@@ -25,15 +25,15 @@ class BasePackagePolicy
      * @param  \App\BasePackage  $basePackage
      * @return mixed
      */
-     public function view(User $user, BasePackage $basePackage)
-     {
-         return ( owner($user, $basePackage) ) ? can(['do-all','view-base-package'], $user) : false;
-     }
- 
-     public function browse(User $user)
-     {
-         return can(['do-all','view-entity'], $user);
-     }
+    public function view(User $user, BasePackage $basePackage)
+    {
+        return ( owner($user, $basePackage) ) ? can(['do-all','view-base-package'], $user) : false;
+    }
+
+    public function browse(User $user)
+    {
+        return can(['do-all','view-entity'], $user);
+    }
  
 
     /**

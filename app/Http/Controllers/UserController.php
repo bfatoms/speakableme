@@ -16,10 +16,6 @@ use App\Http\Requests\CreateUserRequest;
 
 class UserController extends Controller
 {
-    public function create(CreateUserRequest $request)
-    {
-        
-    }
     
     public function getLanguage($lang = false)
     {
