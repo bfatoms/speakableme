@@ -71,9 +71,9 @@ if(!function_exists('can'))
 
 if(!function_exists('owner'))
 {
-    function owner($user, $entity)
+    function owner($user, $class, $identifier = 'entity_id')
     {
-        return ($user->entity_id === $entity->managed_by_id);
+        return ($user->entity_id === $class->{$identifier});
     }
 }
 

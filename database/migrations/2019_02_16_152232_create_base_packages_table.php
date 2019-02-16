@@ -16,7 +16,8 @@ class CreateBasePackagesTable extends Migration
         Schema::create('base_packages', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('class_type_id');
-            $table->unsignedInteger('entity_type_id');
+            $table->char('entity_id',36);
+            $table->char('assigned_id',36);
             $table->string('name');
             $table->decimal('unit_price',10,4);
             $table->unsignedInteger('number_of_classes');

@@ -45,6 +45,14 @@ Route::group(['middleware' => ['api']], function ($router) {
         // get class types
         Route::get('class-types', 'ClassTypeController@index');
 
+        // base packages
+        Route::post('base-packages', 'BasePackageController@store');
+        Route::put('base-packages/{id}', 'BasePackageController@update');
+        Route::get('base-packages', 'BasePackageController@index');
+        Route::get('base-packages/{id}', 'BasePackageController@show');
+        
+        // Route::post('base-packages', 'BasePackageController@store');
+
         Route::get('student/balance', "UserController@getBalance");
         Route::get('student/schedule', "UserController@getClassSchedule");
         Route::get('student/language', 'UserController@getLanguage');

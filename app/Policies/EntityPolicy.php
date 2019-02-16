@@ -56,7 +56,7 @@ class EntityPolicy
     public function update(User $user, Entity $entity)
     {
         // if your entity is the owner of this entity being updated returns true
-        return ( owner($user, $entity) ) ? can(['do-all','update-entity'], $user) : false;
+        return ( owner($user, $entity, 'managed_by_id') ) ? can(['do-all','update-entity'], $user) : false;
     }
 
     /**
