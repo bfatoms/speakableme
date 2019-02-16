@@ -45,7 +45,7 @@ class Handler extends ExceptionHandler
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $exception)
-    {
+    {        
         return response()->json([
             'success' => false,
             'message' => $exception->getMessage()

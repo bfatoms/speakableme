@@ -29,7 +29,7 @@ class EntityPolicy
         return ( owner($user, $entity) ) ? can(['do-all','view-entity'], $user) : false;
     }
 
-    public function browse()
+    public function browse(User $user)
     {
         return can(['do-all','view-entity'], $user);
     }

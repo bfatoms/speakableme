@@ -73,6 +73,14 @@ if(!function_exists('owner'))
 {
     function owner($user, $entity)
     {
-        return ($user->id === $entity->managed_by_id);
+        return ($user->entity_id === $entity->managed_by_id);
+    }
+}
+
+if(!function_exists('debug'))
+{
+    function debug()
+    {
+        return config('app.debug');
     }
 }

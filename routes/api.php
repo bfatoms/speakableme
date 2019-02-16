@@ -42,6 +42,8 @@ Route::group(['middleware' => ['api']], function ($router) {
         Route::get('entities', 'EntityController@index');
         Route::get('entities/{id}', 'EntityController@show');
 
+        // get class types
+        Route::get('class-types', 'ClassTypeController@index');
 
         Route::get('student/balance', "UserController@getBalance");
         Route::get('student/schedule', "UserController@getClassSchedule");

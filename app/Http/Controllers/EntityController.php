@@ -11,8 +11,8 @@ class EntityController extends Controller
 {
     public function index()
     {
-        $this->authorize('view', Entity::class);
-
+        $this->authorize('browse', Entity::class);
+        return $this->respond(Entity::where('managed_by_id', auth()->user()->entity_id)->get());
     }
 
     public function store(Request $request)
@@ -25,15 +25,23 @@ class EntityController extends Controller
             'id' => (string) Str::uuid(),
             'entity_type_id' => $entity_type_id,
         ]);
-// dd($create);
-        return Entity::create($create);
+
+        return $this->respond(Entity::create($create));
+    }
+
+    public function show($id)
+    {
+        $entity = Entity::find($id);
+        $this->authorize('view', $entity);
+        return $this->respond($entity);
     }
 
     public function update(Request $request, $id)
     {
         $entity = Entity::find($id);
-        $this->authorize('update', auth()->user(), $entity);
-        return $entity->update($request->all());
+        $this->authorize('update', $entity);
+        $entity->update($request->all());
+        return $this->respond($entity->fresh());
     }
 
 }
