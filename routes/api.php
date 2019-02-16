@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 // });
 
 Route::group(['middleware' => ['api']], function ($router) {
-    // book-classes/910
+
     Route::group(['prefix' => 'auth'], function(){
         Route::post('login', 'AuthController@login');
         Route::post('refresh', 'AuthController@refresh');
@@ -32,8 +32,17 @@ Route::group(['middleware' => ['api']], function ($router) {
     });
 
 
+
+
+    // OLD STUDENT LOGIN
     Route::group(['middleware'=>'jwtchecker'], function(){
-        Route::resource('entities', 'EntityController');
+        // create organization
+        Route::post('entities', 'EntityController@store');
+        Route::put('entities/{id}', 'EntityController@update');
+        Route::get('entities', 'EntityController@index');
+        Route::get('entities/{id}', 'EntityController@show');
+
+
         Route::get('student/balance', "UserController@getBalance");
         Route::get('student/schedule', "UserController@getClassSchedule");
         Route::get('student/language', 'UserController@getLanguage');

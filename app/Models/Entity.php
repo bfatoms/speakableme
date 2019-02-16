@@ -15,6 +15,7 @@ class Entity extends Model
     public $incrementing = false;
     
     protected $fillable = [
+        'id',
         'entity_type_id',
         'name',
         'address',
@@ -22,7 +23,10 @@ class Entity extends Model
         'manage_students',
         'manage_teachers',
         'manage_clients',
-        'default_email'
+        'default_email',
+        'default_lang',
+        'default_timezone',
+        'managed_by_id'
     ];
 
     protected $casts = [

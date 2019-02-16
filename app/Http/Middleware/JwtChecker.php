@@ -19,7 +19,7 @@ class JwtChecker
     public function handle($request, Closure $next)
     {
         if(!auth()->check()){
-            throw new \Exception("Token Expired", 401);
+            throw new \Exception("Token Expired, Missing or Blacklisted", 401);
         }
         
         return $next($request);

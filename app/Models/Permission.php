@@ -12,6 +12,7 @@ class Permission extends Model
     public $incrementing = false;
 
     protected $fillable = [
+        'id',
         'system_name',
         'name',
         'manage_teachers',

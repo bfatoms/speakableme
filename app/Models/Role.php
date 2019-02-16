@@ -13,6 +13,7 @@ class Role extends Model
     public $incrementing = false;
 
     protected $fillable = [
+        'id',
         'entity_id',
         'system_name',
         'name',

@@ -31,6 +31,7 @@ class ComposerStaticInitd8f45afb36e7af8977eac009efd54e30
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         '0d8253363903f0ac7b0978dcde4e28a0' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/helpers.php',
+        '8fde5feda9697fe0ee53a3938c839fb0' => __DIR__ . '/../..' . '/app/Helpers/Helper.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -514,6 +515,8 @@ class ComposerStaticInitd8f45afb36e7af8977eac009efd54e30
         'App\\Models\\UserPermission' => __DIR__ . '/../..' . '/app/Models/UserPermission.php',
         'App\\Observers\\EntityObserver' => __DIR__ . '/../..' . '/app/Observers/EntityObserver.php',
         'App\\Observers\\EntityTypeObserver' => __DIR__ . '/../..' . '/app/Observers/EntityTypeObserver.php',
+        'App\\Policies\\EntityPolicy' => __DIR__ . '/../..' . '/app/Policies/EntityPolicy.php',
+        'App\\Policies\\UserPolicy' => __DIR__ . '/../..' . '/app/Policies/UserPolicy.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',

@@ -58,6 +58,7 @@ class EntityObserver
 
     public function createRolePermissions($role)
     {
+        // dd($role_id);
         $name = $role->system_name;
         foreach(config("speakable.permissions.$name") as $permission) {
             RolePermission::create([

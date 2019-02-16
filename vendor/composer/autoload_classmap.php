@@ -64,6 +64,8 @@ return array(
     'App\\Models\\UserPermission' => $baseDir . '/app/Models/UserPermission.php',
     'App\\Observers\\EntityObserver' => $baseDir . '/app/Observers/EntityObserver.php',
     'App\\Observers\\EntityTypeObserver' => $baseDir . '/app/Observers/EntityTypeObserver.php',
+    'App\\Policies\\EntityPolicy' => $baseDir . '/app/Policies/EntityPolicy.php',
+    'App\\Policies\\UserPolicy' => $baseDir . '/app/Policies/UserPolicy.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',
