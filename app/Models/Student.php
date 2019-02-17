@@ -25,7 +25,7 @@ class Student extends Authenticatable implements JwtSubject
      */
     public $fillable = [
         'id',
-        'name', 'email', 'password', 'role_id', 'entity_id',
+        'email', 'password', 'role_id', 'entity_id',
         'first_name', 'last_name', 'middle_name', 'nick',
         'email', 'avatar', 'password', 'remember_token',
         'gender', 'qq', 'mobile', 'wechat', 'address',
@@ -50,6 +50,11 @@ class Student extends Authenticatable implements JwtSubject
         'special_plotting', 'teacher_account_type_id', 'bank_name',
         'bank_account_number', 'bank_account_name', 'base_rate',
     ];
+
+    public function setGenderAttribute($value)
+    {
+        $this->attributes['gender'] = strtolower($value);
+    }
 
     public function getJWTIdentifier() {
         return $this->getKey();

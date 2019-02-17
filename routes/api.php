@@ -50,7 +50,11 @@ Route::group(['middleware' => ['api']], function ($router) {
         Route::put('base-packages/{id}', 'BasePackageController@update');
         Route::get('base-packages', 'BasePackageController@index');
         Route::get('base-packages/{id}', 'BasePackageController@show');
-        
+
+        // students
+        Route::post('students', 'StudentController@store');
+        Route::put('students/{id}', 'StudentController@update');
+
         // Route::post('base-packages', 'BasePackageController@store');
 
         Route::get('student/balance', "UserController@getBalance");

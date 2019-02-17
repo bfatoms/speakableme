@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Log;
 
 class Handler extends ExceptionHandler
 {
@@ -45,11 +46,22 @@ class Handler extends ExceptionHandler
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $exception)
-    {        
+    {
+        if(debug()) {
+            return response()->json([
+                'success' => false,
+                'message' => $exception->getMessage()
+            ]);    
+        }
+
+        $debug_code = str_random(18);
+
+        Log::channel('dailyerr')->info([$debug_code => $exception->getMessage()]);
+
         return response()->json([
             'success' => false,
-            'message' => $exception->getMessage()
+            'message' => 'Something Went Wrong, Contact The Site Administrator and send this code: '. $debug_code,
         ]);
-        // return parent::render($request, $exception);
+
     }
 }
