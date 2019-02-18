@@ -114,20 +114,20 @@ class TeacherController extends Controller
             }
         }
 
-        return $this->respond($teacher->fresh(), "Teacher Successfully Updated!");
+        return $this->respond($teacher->refresh(), "Teacher Successfully Updated!");
     }
 
     public function index()
     {
         $this->authorize('browse', Teacher::class);
-        return Teacher::where('entity_id', eid())->where('role_id', role('teacher'))->get();
+        return $this->respond(Teacher::where('entity_id', eid())->where('role_id', role('teacher'))->get());
     }
 
     public function show($id)
     {
         $teacher = Teacher::where('entity_id', eid())->where('id', $id)->firstOrFail();
         $this->authorize('view', $teacher);
-        return $teacher;
+        return $this->respond($teacher);
     }
 
 }

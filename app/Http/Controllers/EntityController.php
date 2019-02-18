@@ -41,7 +41,7 @@ class EntityController extends Controller
         $entity = Entity::find($id);
         $this->authorize('update', $entity);
         $entity->update($request->all());
-        return $this->respond($entity->fresh());
+        return $this->respond($entity->refresh());
     }
 
 }

@@ -21,6 +21,10 @@ class BasePackage extends Model
     protected $casts = [
         'entity_id' => 'string',
         'assigned_id' => 'string',
+        "unit_price" => 'float',
+        "number_of_classes" => 'integer',
+        "base_price" => 'float',
+        "duration_in_days" => 'integer'
     ];
 
     public function entity()

@@ -19,5 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(StudentAccountTypeSeeder::class);
         $this->call(TeacherAccountTypeSeeder::class);
         $this->call(BalanceTypeSeeder::class);
+        $this->call(SubjectSeeder::class);
+        $this->call(ClassSessionSeeder::class);
     }
 }

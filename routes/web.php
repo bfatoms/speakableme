@@ -10,7 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+use Illuminate\Support\Facades\Storage;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Route::get('/books/{path}/{filename}',function($path, $filename){
+//     return Storage::download("books/".$path."/".$filename);
+// });

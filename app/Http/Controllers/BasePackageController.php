@@ -20,7 +20,7 @@ class BasePackageController extends Controller
         $data = BasePackage::find($id);
         $this->authorize('update', $data);
         $data->update($request->all());
-        return $this->respond($data->fresh(),"Base Pacakage Successfully Updated");
+        return $this->respond($data->refresh(),"Base Pacakage Successfully Updated");
     }
 
     public function show($id)

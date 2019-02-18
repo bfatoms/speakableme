@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,11 @@ use Illuminate\Http\Request;
 // });
 
 Route::group(['middleware' => ['api']], function ($router) {
+
+    Route::get('test', function(){
+        return now()->toW3cString();
+        return Carbon::parse("2015-02-04T00:53:51+02:00");
+    });
 
     Route::group(['prefix' => 'auth'], function(){
         Route::post('login', 'AuthController@login');
@@ -72,9 +78,28 @@ Route::group(['middleware' => ['api']], function ($router) {
         // entity packages
         Route::post('entity-packages', 'EntityPackageController@store');
         Route::put('entity-packages/{id}', 'EntityPackageController@update');
+        Route::delete('entity-packages/{id}', 'EntityPackageController@destroy');
         Route::get('entity-packages/{id}', 'EntityPackageController@show');
         Route::get('entity-packages', 'EntityPackageController@index');
 
+        // schedules
+        Route::post('schedules', 'ScheduleController@store');
+        Route::put('schedules/{id}', 'ScheduleController@update');
+        Route::delete('schedules/{id}', 'ScheduleController@destroy');
+        Route::get('schedules/{id}', 'ScheduleController@show');
+        Route::get('schedules', 'ScheduleController@index');
+
+        // mark teacher as absent
+        Route::put('schedules/{id}/absent', 'ScheduleController@absent');
+
+        // book a schedule
+        Route::post('schedule-bookings', 'ScheduleBookingController@store');
+
+        // mark student as absent
+        Route::put('schedule-bookings/{id}/absent', 'ScheduleBookingController@absent');
+
+        // uploading an asset for the class
+        Route::post('schedule-assets/{id?}', 'ScheduleAssetController@store');
 
 
 

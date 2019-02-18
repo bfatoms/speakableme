@@ -110,7 +110,7 @@ class StudentController extends Controller
 
         if($student->update($update)){
 
-            $student = $student->fresh();
+            $student = $student->refresh();
             
             if(array_key_exists('password', $update)) {
 
@@ -136,20 +136,20 @@ class StudentController extends Controller
             }
         }
 
-        return $this->respond($student->fresh(), "Student Successfully Updated!");
+        return $this->respond($student->refresh(), "Student Successfully Updated!");
     }
 
     public function index()
     {
         $this->authorize('browse', Student::class);
-        return Student::where('entity_id', eid())->where('role_id', role('student'))->get();
+        return $this->respond(Student::where('entity_id', eid())->where('role_id', role('student'))->get());
     }
 
     public function show($id)
     {
         $student = Student::where('entity_id', eid())->where('id', $id)->firstOrFail();
         $this->authorize('view', $student);
-        return $student;
+        return $this->respond($student);
     }
 
 }

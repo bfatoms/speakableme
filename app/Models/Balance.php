@@ -14,4 +14,9 @@ class Balance extends Model
         'validity',
         'order_id'
     ];
+
+    protected $casts = [
+        'remaining' => 'integer',
+        'total' => 'integer'
+    ];
 }
