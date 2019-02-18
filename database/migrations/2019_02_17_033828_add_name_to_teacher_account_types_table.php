@@ -28,7 +28,7 @@ class AddNameToTeacherAccountTypesTable extends Migration
      */
     public function down()
     {
-        if(debug()){
+        if(local()){
             Schema::table('teacher_account_types', function (Blueprint $table) {
                 $table->string('name');
             });    

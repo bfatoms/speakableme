@@ -35,4 +35,6 @@ class BasePackageController extends Controller
         $this->authorize('browse', BasePackage::class);
         return $this->respond(BasePackage::where('entity_id', auth()->user()->entity_id)->get());
     }
+
+    
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBalanceTypesTable extends Migration
+class AddBalanceValidityToBalancesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateBalanceTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('balance_types', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->timestamps();
+        Schema::table('balances', function (Blueprint $table) {
+            $table->dateTime('validity')->nullable();
         });
     }
 
@@ -28,7 +26,9 @@ class CreateBalanceTypesTable extends Migration
     public function down()
     {
         if(local()){
-            Schema::dropIfExists('balance_types');
+            Schema::table('balances', function (Blueprint $table) {
+                $table->dropColumn('validity');
+            });    
         }
     }
 }

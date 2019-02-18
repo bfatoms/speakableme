@@ -15,6 +15,7 @@ class TeacherAccountTypeSeeder extends Seeder
         TeacherAccountType::create([
             'name' => 'Level 1'
         ]);
+
         TeacherAccountType::create([
             'name' => 'Level 2'
         ]);

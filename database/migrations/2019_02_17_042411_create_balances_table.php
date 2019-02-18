@@ -31,7 +31,7 @@ class CreateBalancesTable extends Migration
      */
     public function down()
     {
-        if(debug()){
+        if(local()){
             Schema::dropIfExists('balances');
         }
     }

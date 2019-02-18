@@ -11,6 +11,7 @@ class Balance extends Model
         'balance_type_id',
         'remaining',
         'total',
+        'validity',
         'order_id'
     ];
 }

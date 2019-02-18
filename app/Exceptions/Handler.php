@@ -51,13 +51,13 @@ class Handler extends ExceptionHandler
             return response()->json([
                 'success' => false,
                 'message' => $exception->getMessage()
-            ]);    
+            ]);
         }
 
         $debug_code = str_random(18);
 
         Log::channel('dailyerr')->info([$debug_code => $exception->getMessage()]);
-
+        
         return response()->json([
             'success' => false,
             'message' => 'Something Went Wrong, Contact The Site Administrator and send this code: '. $debug_code,

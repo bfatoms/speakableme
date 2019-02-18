@@ -3,16 +3,16 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Student;
+use App\Models\Teacher;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class StudentPolicy
+class TeacherPolicy
 {
     use HandlesAuthorization;
 
     public function __construct()
     {
-        if(!userEntityCan('manage_students')){
+        if(!userEntityCan('manage_teachers')){
             return false;
         }
     }
@@ -20,17 +20,17 @@ class StudentPolicy
      * Determine whether the user can view the student.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Student  $student
+     * @param  \App\Student  $teacher
      * @return mixed
      */
-    public function view(User $user, Student $student)
+    public function view(User $user, Teacher $teacher)
     {
-        return ( owner($user, $student) ) ? can(['do-all','view-student'], $user) : false;
+        return ( owner($user, $teacher) ) ? can(['do-all','view-teacher'], $user) : false;
     }
 
     public function browse(User $user)
     {
-        return can(['do-all','view-student'], $user);
+        return can(['do-all','view-teacher'], $user);
     }
 
     /**
@@ -41,29 +41,29 @@ class StudentPolicy
      */
     public function create(User $user)
     {
-        return can(['do-all','create-student'], $user);
+        return can(['do-all','create-teacher'], $user);
     }
 
     /**
      * Determine whether the user can update the student.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Student  $student
+     * @param  \App\Student  $teacher
      * @return mixed
      */
-    public function update(User $user, Student $student)
+    public function update(User $user, Teacher $teacher)
     {
-        return ( owner($user, $student) ) ? can(['do-all','update-student'], $user) : false;
+        return ( owner($user, $teacher) ) ? can(['do-all','update-teacher'], $user) : false;
     }
 
     /**
      * Determine whether the user can delete the student.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Student  $student
+     * @param  \App\Student  $teacher
      * @return mixed
      */
-    public function delete(User $user, Student $student)
+    public function delete(User $user, Teacher $teacher)
     {
         //
     }
@@ -72,10 +72,10 @@ class StudentPolicy
      * Determine whether the user can restore the student.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Student  $student
+     * @param  \App\Student  $teacher
      * @return mixed
      */
-    public function restore(User $user, Student $student)
+    public function restore(User $user, Teacher $teacher)
     {
         //
     }
@@ -84,10 +84,10 @@ class StudentPolicy
      * Determine whether the user can permanently delete the student.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Student  $student
+     * @param  \App\Student  $teacher
      * @return mixed
      */
-    public function forceDelete(User $user, Student $student)
+    public function forceDelete(User $user, Teacher $teacher)
     {
         //
     }

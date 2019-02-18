@@ -51,11 +51,32 @@ Route::group(['middleware' => ['api']], function ($router) {
         Route::get('base-packages', 'BasePackageController@index');
         Route::get('base-packages/{id}', 'BasePackageController@show');
 
+        // student account types
+        Route::get('student-account-types', 'StudentAccountTypeController@index');
+
         // students
         Route::post('students', 'StudentController@store');
         Route::put('students/{id}', 'StudentController@update');
+        Route::get('students/{id}', 'StudentController@show');
+        Route::get('students', 'StudentController@index');
 
-        // Route::post('base-packages', 'BasePackageController@store');
+        // teacher account types
+        Route::get('teacher-account-types', 'TeacherAccountTypeController@index');
+
+        // teachers
+        Route::post('teachers', 'TeacherController@store');
+        Route::put('teachers/{id}', 'TeacherController@update');
+        Route::get('teachers/{id}', 'TeacherController@show');
+        Route::get('teachers', 'TeacherController@index');
+
+        // entity packages
+        Route::post('entity-packages', 'EntityPackageController@store');
+        Route::put('entity-packages/{id}', 'EntityPackageController@update');
+        Route::get('entity-packages/{id}', 'EntityPackageController@show');
+        Route::get('entity-packages', 'EntityPackageController@index');
+
+
+
 
         Route::get('student/balance', "UserController@getBalance");
         Route::get('student/schedule', "UserController@getClassSchedule");

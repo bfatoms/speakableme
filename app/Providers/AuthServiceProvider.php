@@ -17,7 +17,12 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models\Entity' => 'App\Policies\EntityPolicy',
         'App\Models\User' => 'App\Policies\UserPolicy',
         'App\Models\BasePackage' => 'App\Policies\BasePackagePolicy',
-        'App\Models\Student' => 'App\Policies\StudentPolicy'
+        'App\Models\Student' => 'App\Policies\StudentPolicy',
+        'App\Models\Teacher' => 'App\Policies\TeacherPolicy',
+        'App\Models\EntityPackage' => 'App\Policies\EntityPackagePolicy',
+        // 'App\Models\Teacher' => 'App\Policies\TeacherPolicy',
+        // 'App\Models\Teacher' => 'App\Policies\TeacherPolicy',
+        // 'App\Models\Teacher' => 'App\Policies\TeacherPolicy',
     ];
 
     /**
@@ -28,7 +33,5 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        //
     }
 }

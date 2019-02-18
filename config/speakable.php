@@ -52,5 +52,7 @@ return [
             'open-schedule',
             'view-student-profile',
         ]
-    ]
+    ],
+    'trial-validity' => 60,
+    'trial' => 1
 ];

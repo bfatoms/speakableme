@@ -51,6 +51,11 @@ class Teacher extends Authenticatable implements JwtSubject
         'immortal', 'student_account_type_id', 'trial_balance', 'trial_validity'
     ];
 
+    public function setGenderAttribute($gender)
+    {
+        $this->attributes['gender'] = strtolower($gender);
+    }
+
     public function getJWTIdentifier() {
         return $this->getKey();
     }

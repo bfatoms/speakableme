@@ -27,7 +27,7 @@ class CreateClassTypesTable extends Migration
      */
     public function down()
     {
-        if(debug()){
+        if(local()){
             Schema::dropIfExists('class_types');
         }
     }

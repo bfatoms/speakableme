@@ -51,9 +51,9 @@ class Student extends Authenticatable implements JwtSubject
         'bank_account_number', 'bank_account_name', 'base_rate',
     ];
 
-    public function setGenderAttribute($value)
+    public function setGenderAttribute($gender)
     {
-        $this->attributes['gender'] = strtolower($value);
+        $this->attributes['gender'] = strtolower($gender);
     }
 
     public function getJWTIdentifier() {

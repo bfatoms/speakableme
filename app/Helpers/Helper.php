@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\RolePermission;
+use App\Models\Role;
 if(!function_exists('userEntityCan'))
 {
     function userEntityCan($perm, $user = null)
@@ -40,5 +41,40 @@ if(!function_exists('debug'))
     function debug()
     {
         return config('app.debug');
+    }
+}
+
+if(!function_exists('production'))
+{
+    function production()
+    {
+        return (config('app.env') === 'production');
+    }
+}
+
+if(!function_exists('local'))
+{
+    function local()
+    {
+        return (config('app.env') === 'local');
+    }
+}
+
+
+if(!function_exists('eid'))
+{
+    function eid()
+    {
+        return auth()->user()->entity_id;
+    }
+}
+
+if(!function_exists('role'))
+{
+    function role($role)
+    {
+        return Role::where('system_name', strtolower($role))
+            ->where('entity_id', auth()->user()->entity_id)
+            ->first()->id;
     }
 }
