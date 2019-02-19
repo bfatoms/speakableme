@@ -89,6 +89,9 @@ Route::group(['middleware' => ['api']], function ($router) {
         Route::get('schedules/{id}', 'ScheduleController@show');
         Route::get('schedules', 'ScheduleController@index');
 
+
+
+
         // mark teacher as absent
         Route::put('schedules/{id}/absent', 'ScheduleController@absent');
 
@@ -100,6 +103,12 @@ Route::group(['middleware' => ['api']], function ($router) {
 
         // uploading an asset for the class
         Route::post('schedule-assets/{id?}', 'ScheduleAssetController@store');
+        Route::get('schedule-assets', 'ScheduleAssetController@index');
+        Route::get('schedule-assets/{id}', 'ScheduleAssetController@show');
+        Route::get('schedules/{id}/assets', 'ScheduleAssetController@show');
+
+        // make a class remark after a class
+        Route::post('students/{student_id}/remarks', 'StudentRemarkController@store');
 
 
 
