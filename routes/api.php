@@ -89,9 +89,6 @@ Route::group(['middleware' => ['api']], function ($router) {
         Route::get('schedules/{id}', 'ScheduleController@show');
         Route::get('schedules', 'ScheduleController@index');
 
-
-
-
         // mark teacher as absent
         Route::put('schedules/{id}/absent', 'ScheduleController@absent');
 
@@ -110,8 +107,19 @@ Route::group(['middleware' => ['api']], function ($router) {
         // make a class remark after a class
         Route::post('students/{student_id}/remarks', 'StudentRemarkController@store');
 
+        // Subject Teacher Rate
+        Route::post('subject-teacher-rates', 'SubjectTeacherRateController@store');
+        Route::put('subject-teacher-rates/{id}', 'SubjectTeacherRateController@update');
+        Route::get('subject-teacher-rates', 'SubjectTeacherRateController@index');
+        Route::get('subject-teacher-rates/{id}', 'SubjectTeacherRateController@show');
+        // Route::delete('subject-teacher-rates', 'SubjectTeacherRateController@destroy');
 
-
+        // schedule teacher rates
+        Route::post('schedule-teacher-rates', 'SubjectTeacherRateController@store');
+        Route::put('schedule-teacher-rates/{id}', 'SubjectTeacherRateController@update');
+        Route::get('schedule-teacher-rates', 'SubjectTeacherRateController@index');
+        Route::get('schedule-teacher-rates/{id}', 'SubjectTeacherRateController@show');
+ 
         Route::get('student/balance', "UserController@getBalance");
         Route::get('student/schedule', "UserController@getClassSchedule");
         Route::get('student/language', 'UserController@getLanguage');

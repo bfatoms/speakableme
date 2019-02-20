@@ -10,13 +10,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\ScheduleBooking;
 use App\Models\Balance;
+use App\Models\ScheduleTeacherRate;
+use App\Models\SubjectTeacherRate;
 
 class ScheduleBookingController extends Controller
 {
     public function store()
     {
         $ids = request('ids');
-        if(!is_array($ids)){
+
+        if(!is_array($ids))
+        {
             $ids = explode(",", $ids);
         }
 
@@ -51,6 +55,9 @@ class ScheduleBookingController extends Controller
                     $schedule->status = 'booked';
 
                     $schedule->save();
+
+                    // once the schedule has been fully booked, we create the rate for this teacher
+                    $this->createTeacherRate($schedule);
                 }
             }
             else
@@ -60,6 +67,8 @@ class ScheduleBookingController extends Controller
                     $schedule->status = 'booked';
 
                     $schedule->save();
+
+                    $this->createTeacherRate($schedule);
                 }
             }
 
@@ -95,7 +104,24 @@ class ScheduleBookingController extends Controller
             // save this created to the booked
             return $created;
         }
+
         return [];
+    }
+
+    public function createTeacherRate($schedule)
+    {
+        // get the fee from Subject Teacher Rate
+        $subject_teacher = SubjectTeacherRate::find($schedule->user_id);
+
+        ScheduleTeacherRate::updateOrCreate(
+            ['schedule_id' => $schedule->id],
+            [
+                'fee' => $subject_teacher->rate,
+                'currency_code' => $subject_teacher->currency_code,
+                'teacher_id' => $schedule->user_id,
+                'schedule_id' => $schedule->id
+            ]
+        );
     }
 
 }

@@ -54,5 +54,6 @@ return [
         ]
     ],
     'trial-validity' => 60,
-    'trial' => 1
+    'trial' => 1,
+    'send_remark_delay' => 10, // in minutes only
 ];

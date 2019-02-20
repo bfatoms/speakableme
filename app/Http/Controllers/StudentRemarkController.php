@@ -8,7 +8,7 @@ use App\Jobs\SendStudentRemarkEmail;
 use App\Jobs\SystemLogger;
 use App\Models\Student;
 use App\Models\Teacher;
-// use App\Mail\StudentRemarkEmail;
+use App\Models\Schedule;
 
 class StudentRemarkController extends Controller
 {
@@ -32,13 +32,7 @@ class StudentRemarkController extends Controller
 
             // send the remarks via email to student
             SendStudentRemarkEmail::dispatch($data['student']->email, $data)
-                ->delay(now()->addSeconds(10));
-
-
-            // \Mail::to($data['student']->email)
-            //     ->locale($data['student']->lang)
-            //     ->send(new StudentRemarkEmail($data));
-
+                ->delay(now()->addMinutes(config('speakable.send_remark_delay')));
 
             SystemLogger::dispatch([
                 'actor_id' => (empty(auth()->user())) ? 0: auth()->user()->id,
@@ -49,6 +43,11 @@ class StudentRemarkController extends Controller
                 'data' => json_encode($data)
             ])
             ->delay(now()->addSeconds(5));
+
+            // also close the schedule
+            $closed = Schedule::find(request('schedule_id'))->update([
+                'status'=>'closed'
+            ]);
         }
         
         return $this->respond($created, "Remark Successfully added..");
