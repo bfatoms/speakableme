@@ -56,4 +56,10 @@ return [
     'trial-validity' => 60,
     'trial' => 1,
     'send_remark_delay' => 10, // in minutes only
+    'tutor-penalty1' => 70,
+    'tutor-penalty2' => 140,
+    'tutor-penalty3' => 210,
+    'group-penalty1' => 70,
+    'group-penalty2' => 140,
+    'group-penalty3' => 210,
 ];

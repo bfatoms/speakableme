@@ -16,7 +16,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('class_type_id');
-            $table->char('user_id',36);
+            $table->char('user_id', 36);
             $table->string('name');
             $table->unsignedInteger('number_of_classes');
             $table->unsignedInteger('duration_in_days');

@@ -46,7 +46,7 @@ class StudentRemarkController extends Controller
 
             // also close the schedule
             $closed = Schedule::find(request('schedule_id'))->update([
-                'status'=>'closed'
+                'status' => 'completed'
             ]);
         }
         

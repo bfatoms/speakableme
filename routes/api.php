@@ -21,8 +21,44 @@ use Illuminate\Support\Carbon;
 Route::group(['middleware' => ['api']], function ($router) {
 
     Route::get('test', function(){
-        return now()->toW3cString();
-        return Carbon::parse("2015-02-04T00:53:51+02:00");
+
+        $data['students'][] = [
+            'id' => "091823-uasoid9834-34234",
+            'absence_reason' => 'na tae'
+        ];
+        $data['students'][] = [
+            'id' => "4567890-asd9a8sd8t3e",
+            'absence_reason' => 'na ihi'
+        ];
+
+        return json_encode($data);
+        $starts_at = Carbon::parse('2019-02-20 12:00:00');
+
+        $now = now();
+
+        // not use else if
+        if($starts_at->diffInHours($now) > 8)
+        {
+            $penalty = config('speakable.penalty1');
+            $note .= "\nIncurred penalty 2 for cancelling a schedule.";
+        }
+
+        if($starts_at->diffInHours($now) < 4)
+        {
+            $penalty = config('speakable.penalty2');
+            $note = "\nIncurred penalty 2 for cancelling a schedule.";
+        }
+
+        if($starts_at->diffInHours($now) < 2)
+        {
+            $penalty = config('speakable.penalty3');
+            $note = "\nIncurred penalty 3 for cancelling a schedule.";
+        }
+
+
+
+        return $penalty;
+
     });
 
     Route::group(['prefix' => 'auth'], function(){
@@ -91,12 +127,12 @@ Route::group(['middleware' => ['api']], function ($router) {
 
         // mark teacher as absent
         Route::put('schedules/{id}/absent', 'ScheduleController@absent');
+        // mark student as absent
+        Route::post('schedules/{id}/absent', 'ScheduleBookingController@absent');
 
         // book a schedule
         Route::post('schedule-bookings', 'ScheduleBookingController@store');
 
-        // mark student as absent
-        Route::put('schedule-bookings/{id}/absent', 'ScheduleBookingController@absent');
 
         // uploading an asset for the class
         Route::post('schedule-assets/{id?}', 'ScheduleAssetController@store');
@@ -113,6 +149,13 @@ Route::group(['middleware' => ['api']], function ($router) {
         Route::get('subject-teacher-rates', 'SubjectTeacherRateController@index');
         Route::get('subject-teacher-rates/{id}', 'SubjectTeacherRateController@show');
         // Route::delete('subject-teacher-rates', 'SubjectTeacherRateController@destroy');
+
+
+
+
+
+
+
 
         // schedule teacher rates
         Route::post('schedule-teacher-rates', 'SubjectTeacherRateController@store');
