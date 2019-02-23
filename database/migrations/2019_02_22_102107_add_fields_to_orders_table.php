@@ -20,7 +20,7 @@ class AddFieldsToOrdersTable extends Migration
             // for payment use paid_at to determine payment status and date
             $table->string('status')->default('pending');
             $table->renameColumn('price_paid', 'price')->change();
-            $table->decimal('discount_price', 10,4)->nullable();
+            $table->decimal('discount_price', 10,4)->nullable()->change();
             $table->string('currency_code')->default('USD');
             $table->unsignedInteger('voucher_id')->nullable();
             $table->softDeletes();
@@ -41,7 +41,7 @@ class AddFieldsToOrdersTable extends Migration
             // for payment use paid_at to determine payment status and date
             $table->dropColumn('status');
             $table->renameColumn('price', 'price_paid')->change();
-            $table->dropColumn('discount_price');
+            $table->decimal('discount_price',10,4)->change();
             $table->dropColumn('currency_code');
             $table->dropColumn('voucher_id');
             $table->dropColumn('deleted_at');
