@@ -20,9 +20,7 @@ use Illuminate\Support\Carbon;
 
 Route::group(['middleware' => ['api']], function ($router) {
 
-    Route::get('test', function(){
-
-    });
+    Route::get('/', 'AuthController@ok');
 
     Route::group(['prefix' => 'auth'], function(){
         Route::post('login', 'AuthController@login');
