@@ -60,8 +60,8 @@ class StudentController extends Controller
         );
 
         // send Registration Data to email
-        SendRegistrationEmail::dispatch($email_data['users']->email, $email_data);
-            // ->delay(now()->addSeconds(10));
+        SendRegistrationEmail::dispatch($email_data['users']->email, $email_data)
+            ->delay(now()->addSeconds(10));
 
         SystemLogger::dispatch([
             'actor_id' => (empty(auth()->user())) ? 0: auth()->user()->id,
