@@ -115,9 +115,5 @@ class AuthController extends Controller
         ];
     }
 
-    public function ok()
-    {
-        return "Status OK!";
-    }
 
 }
