@@ -65,7 +65,7 @@ class AuthController extends Controller
 
         $reflect = new \ReflectionClass('App\Models\\' . ucfirst($role->system_name));
         $class = $reflect->newInstance();
-        return $class::find(auth()->user());
+        return $class::find(auth()->user()->id);
     }
 
     /**

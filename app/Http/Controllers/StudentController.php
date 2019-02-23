@@ -60,8 +60,8 @@ class StudentController extends Controller
         );
 
         // send Registration Data to email
-        SendRegistrationEmail::dispatch($email_data['users']->email, $email_data)
-            ->delay(now()->addSeconds(10));
+        SendRegistrationEmail::dispatch($email_data['users']->email, $email_data);
+            // ->delay(now()->addSeconds(10));
 
         SystemLogger::dispatch([
             'actor_id' => (empty(auth()->user())) ? 0: auth()->user()->id,
@@ -70,8 +70,8 @@ class StudentController extends Controller
             'system_loggable_id' => $data['id'],
             'system_loggable_type' => 'user',
             'data' => json_encode($data)
-        ])
-        ->delay(now()->addSeconds(5));
+        ]);
+        // ->delay(now()->addSeconds(5));
 
         // we also add free trial and immortal to the balances
         Balance::create([

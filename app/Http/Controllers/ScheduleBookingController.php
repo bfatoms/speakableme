@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Subject;
 use App\Models\Schedule;
-use App\Models\ClassSession;
-use App\Models\ClassType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\ScheduleBooking;
 use App\Models\Balance;
 use App\Models\ScheduleTeacherRate;
-use App\Models\SubjectTeacherRate;
+use App\Models\TeacherRate;
 
 class ScheduleBookingController extends Controller
 {
@@ -38,35 +35,52 @@ class ScheduleBookingController extends Controller
 
         foreach($schedules as $schedule)
         {
-            $bookings = ScheduleBooking::where('schedule_id', $schedule->class_type_id)->get();
+            // before anything check if you already booked this class, skip if you did
+            $previously_booked = ScheduleBooking::where('schedule_id', $schedule->id)
+                ->where('user_id', request('student_id',auth()->user()->id))
+                ->first();
+
+            if(!empty($previously_booked))
+            {
+                continue;
+            }
+            
+            $bookings = ScheduleBooking::where('schedule_id', $schedule->id)->get();
             //book this schedule
             if(count($bookings) < $schedule->max)
             {
-                $booked[] = $this->bookSchedule($schedule, $balance);
+                $book_schedule = $this->bookSchedule($schedule, $balance);
+                
+                if(!empty($book_schedule))
+                {
+                    // if not empty books_chedule
+                    $schedule->student_provider_id = eid();
+
+                    $schedule->save();
+                }
+                
+                $booked[] = $book_schedule;
             }
+
             $bookings->fresh();
             // if its already full mark it as booked
             if(count($bookings) >= $schedule->max)
             {
                 $schedule->status = 'booked';
-
                 $schedule->save();
             }
             // create the schedule
             $this->createTeacherRate($schedule);
-
-
             // if balance is 0 break the operation
             if($balance->remaining <= 0)
             {
                 break;
             }
-
         }
 
         if(empty($booked))
         {
-            throw new \Exception(__("Class is already fully-booked."), 424);
+            throw new \Exception(__("You've booked this class, or already fully-booked."), 424);
         }
 
         return $this->respond($booked, "Successfully Booked");
@@ -94,23 +108,24 @@ class ScheduleBookingController extends Controller
 
     public function createTeacherRate($schedule)
     {
-        // get the fee from Subject Teacher Rate
-        $subject_teacher = SubjectTeacherRate::where('teacher_id', $schedule->user_id)
-            ->where('entity_id', $schedule->entity_id)
-            ->where('entity_id')
+        // get the fee from Teacher Rate table according to class_type_id
+
+        $teacher_rate = TeacherRate::where('teacher_id', $schedule->user_id)
+            ->where('student_provider_id', $schedule->student_provider_id)
+            ->where('class_type_id', $schedule->class_type_id)
             ->first();
 
         ScheduleTeacherRate::updateOrCreate(
             ['schedule_id' => $schedule->id],
             [
-                'fee' => $subject_teacher->rate,
-                'currency_code' => $subject_teacher->currency_code,
+                'fee' => $teacher_rate->rate,
+                'currency_code' => $teacher_rate->currency_code,
                 'teacher_id' => $schedule->user_id,
                 'schedule_id' => $schedule->id
             ]
         );
 
-        return $rate;
+        return $teacher_rate;
     }
 
 
@@ -155,7 +170,7 @@ class ScheduleBookingController extends Controller
                     ['schedule'=> $schedule]
                 );
                 // send Registration Data to email
-                SendCancelledScheduleEmail::dispatch($email['student']->email, $data);
+                SendCancelledScheduleEmail::dispatch($data['student']->email, $data);
             }
         }
         // Incur the highest penalty for teacher

@@ -2,6 +2,7 @@
 
 use App\Models\RolePermission;
 use App\Models\Role;
+
 if(!function_exists('userEntityCan'))
 {
     function userEntityCan($perm, $user = null)
@@ -71,10 +72,10 @@ if(!function_exists('eid'))
 
 if(!function_exists('role'))
 {
-    function role($role)
+    function role($role, $eid = null)
     {
         return Role::where('system_name', strtolower($role))
-            ->where('entity_id', auth()->user()->entity_id)
+            ->where('entity_id', $eid ?? auth()->user()->entity_id)
             ->first()->id;
     }
 }

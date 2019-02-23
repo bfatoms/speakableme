@@ -22,43 +22,6 @@ Route::group(['middleware' => ['api']], function ($router) {
 
     Route::get('test', function(){
 
-        $data['students'][] = [
-            'id' => "091823-uasoid9834-34234",
-            'absence_reason' => 'na tae'
-        ];
-        $data['students'][] = [
-            'id' => "4567890-asd9a8sd8t3e",
-            'absence_reason' => 'na ihi'
-        ];
-
-        return json_encode($data);
-        $starts_at = Carbon::parse('2019-02-20 12:00:00');
-
-        $now = now();
-
-        // not use else if
-        if($starts_at->diffInHours($now) > 8)
-        {
-            $penalty = config('speakable.penalty1');
-            $note .= "\nIncurred penalty 2 for cancelling a schedule.";
-        }
-
-        if($starts_at->diffInHours($now) < 4)
-        {
-            $penalty = config('speakable.penalty2');
-            $note = "\nIncurred penalty 2 for cancelling a schedule.";
-        }
-
-        if($starts_at->diffInHours($now) < 2)
-        {
-            $penalty = config('speakable.penalty3');
-            $note = "\nIncurred penalty 3 for cancelling a schedule.";
-        }
-
-
-
-        return $penalty;
-
     });
 
     Route::group(['prefix' => 'auth'], function(){
@@ -70,19 +33,19 @@ Route::group(['middleware' => ['api']], function ($router) {
             Route::get('me', 'AuthController@me');
         });
 
-
     });
 
 
 
 
     // OLD STUDENT LOGIN
-    Route::group(['middleware'=>'jwtchecker'], function(){
+    Route::group(['middleware'=>'jwtchecker'], function() {
         // create organization
         Route::post('entities', 'EntityController@store');
         Route::put('entities/{id}', 'EntityController@update');
         Route::get('entities', 'EntityController@index');
         Route::get('entities/{id}', 'EntityController@show');
+        Route::post('entities/assign', 'EntityController@assign');
 
         // get class types
         Route::get('class-types', 'ClassTypeController@index');
@@ -92,6 +55,25 @@ Route::group(['middleware' => ['api']], function ($router) {
         Route::put('base-packages/{id}', 'BasePackageController@update');
         Route::get('base-packages', 'BasePackageController@index');
         Route::get('base-packages/{id}', 'BasePackageController@show');
+        Route::get('provider/base-packages', 'BasePackageController@providerIndex');
+
+        // base penalties
+        Route::post('base-penalties', 'BasePenaltyController@store');
+        Route::put('base-penalties/{id}', 'BasePenaltyController@update');
+        Route::get('base-penalties', 'BasePenaltyController@index');
+        Route::get('base-penalties/{id}', 'BasePenaltyController@show');
+
+        // base rates
+        Route::post('base-rates', 'BaseRateController@store');
+        Route::put('base-rates/{id}', 'BaseRateController@update');
+        Route::get('base-rates', 'BaseRateController@index');
+        Route::get('base-rates/{id}', 'BaseRateController@show');
+
+        // base teacher rates
+        Route::post('base-teacher-rates', 'BaseTeacherRateController@store');
+        Route::put('base-teacher-rates/{id}', 'BaseTeacherRateController@update');
+        Route::get('base-teacher-rates', 'BaseTeacherRateController@index');
+        Route::get('base-teacher-rates/{id}', 'BaseTeacherRateController@show');
 
         // student account types
         Route::get('student-account-types', 'StudentAccountTypeController@index');
@@ -117,6 +99,7 @@ Route::group(['middleware' => ['api']], function ($router) {
         Route::delete('entity-packages/{id}', 'EntityPackageController@destroy');
         Route::get('entity-packages/{id}', 'EntityPackageController@show');
         Route::get('entity-packages', 'EntityPackageController@index');
+        Route::get('provider/entity-packages', 'EntityPackageController@providerIndex');
 
         // schedules
         Route::post('schedules', 'ScheduleController@store');
@@ -124,6 +107,8 @@ Route::group(['middleware' => ['api']], function ($router) {
         Route::delete('schedules/{id}', 'ScheduleController@destroy');
         Route::get('schedules/{id}', 'ScheduleController@show');
         Route::get('schedules', 'ScheduleController@index');
+        Route::get('schedules/{id}/students', 'ScheduleController@students');
+
 
         // mark teacher as absent
         Route::put('schedules/{id}/absent', 'ScheduleController@absent');
@@ -152,17 +137,27 @@ Route::group(['middleware' => ['api']], function ($router) {
 
 
 
-
-
-
-
-
         // schedule teacher rates
         Route::post('schedule-teacher-rates', 'SubjectTeacherRateController@store');
         Route::put('schedule-teacher-rates/{id}', 'SubjectTeacherRateController@update');
         Route::get('schedule-teacher-rates', 'SubjectTeacherRateController@index');
         Route::get('schedule-teacher-rates/{id}', 'SubjectTeacherRateController@show');
  
+
+        Route::get('search/schedules/{datetime?}', 'ScheduleController@availableTeachers');
+        Route::get('search/teacher/{id}/schedules/{datetime?}', 'ScheduleController@availableTeacherSchedule');
+
+        // orders
+        Route::post('orders', 'OrderController@store');
+        Route::put('orders/{id}/approve', 'OrderController@approve');
+        Route::get('orders', 'OrderController@index');
+
+        // balances
+        Route::get('balances', 'BalanceController@index');
+
+
+
+
         Route::get('student/balance', "UserController@getBalance");
         Route::get('student/schedule', "UserController@getClassSchedule");
         Route::get('student/language', 'UserController@getLanguage');
@@ -177,9 +172,7 @@ Route::group(['middleware' => ['api']], function ($router) {
         Route::post('available/book', 'AvailabilityController@bookAvailableSchedule');
     
         Route::get('school/packages', 'SchoolPackageController@index');
-    
-        Route::post('orders', 'OrderController@store');
-        Route::get('orders', 'OrderController@index');
+
 
     });
 });

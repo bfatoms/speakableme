@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSubjectTeacherRatesTable extends Migration
+class CreateTeacherRatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,16 @@ class CreateSubjectTeacherRatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('subject_teacher_rates', function (Blueprint $table) {
+        Schema::create('teacher_rates', function (Blueprint $table) {
             $table->increments('id');
             // rate is unique per entity, teacher, and subject
             $table->char('teacher_id', 36);
             $table->unsignedInteger('subject_id');
             $table->unsignedInteger('class_type_id');
-            $table->char('entity_id', 36);
+            $table->char('student_provider_id', 36);
             $table->decimal('rate', 10,4);
             $table->string('currency_code')->default("PHP");
-            $table->unique(['entity_id', 'teacher_id', 'subject_id', 'class_type_id'],
+            $table->unique(['student_provider_id', 'teacher_id', 'subject_id', 'class_type_id', 'rate'],
                 'entity_teacher_subject_class_type_rate'
             );
             $table->timestamps();
@@ -36,6 +36,6 @@ class CreateSubjectTeacherRatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subject_teacher_rates');
+        Schema::dropIfExists('teacher_rates');
     }
 }

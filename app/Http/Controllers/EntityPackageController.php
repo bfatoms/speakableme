@@ -17,7 +17,8 @@ class EntityPackageController extends Controller
         $total = 0;
         
         $data = [
-            "entity_id" => eid(),
+            "entity_id" => request('entity_id', eid()),
+            "student_provider_id" => request('student_provider_id', eid()),
             "class_type_id" => $package->class_type_id,
             "base_price" => $package->base_price,
             "name" => request('name'),
@@ -79,5 +80,17 @@ class EntityPackageController extends Controller
         $package = EntityPackage::find($id);
         $package->delete();
         return $this->respond($package, "Package Successfully Deleted");
+    }
+
+    public function providerIndex()
+    {
+        $packages = EntityPackage::where('student_provider_id', request('student_provider_id', eid()))
+            ->get();
+        
+        $count = count($packages);
+        
+        $word = str_plural('Package',$count);
+        
+        return $this->respond($packages, "$count $word Found!");
     }
 }

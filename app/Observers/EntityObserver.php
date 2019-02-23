@@ -100,8 +100,8 @@ class EntityObserver
         );
         
         // send Registration Data to email
-        SendRegistrationEmail::dispatch($email_data['users']->email, $email_data)
-            ->delay(now()->addSeconds(10));
+        SendRegistrationEmail::dispatch($email_data['users']->email, $email_data);
+            // ->delay(now()->addSeconds(10));
 
         SystemLogger::dispatch([
             'actor_id' => (empty(auth()->user())) ? 0: auth()->user()->id,
@@ -110,9 +110,8 @@ class EntityObserver
             'system_loggable_id' => $data['id'],
             'system_loggable_type' => 'user',
             'data' => json_encode($data)
-        ])
-        ->delay(now()->addSeconds(3));
-        
+        ]);
+        // ->delay(now()->addSeconds(3));
 
         return $data;
     }

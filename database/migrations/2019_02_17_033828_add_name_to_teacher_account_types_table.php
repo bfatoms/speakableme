@@ -30,7 +30,7 @@ class AddNameToTeacherAccountTypesTable extends Migration
     {
         if(local()){
             Schema::table('teacher_account_types', function (Blueprint $table) {
-                $table->string('name');
+                $table->dropColumn('name');
             });    
         }
     }

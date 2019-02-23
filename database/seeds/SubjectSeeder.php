@@ -14,7 +14,7 @@ class SubjectSeeder extends Seeder
     {
         Subject::create([
             'name' => 'English',
-            'code' => kebab_case('English')
+            'code' => strtolower(kebab_case('English'))
         ]);
     }
 }

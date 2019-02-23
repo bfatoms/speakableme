@@ -22,7 +22,7 @@ class CreateScheduleTeacherRatesTable extends Migration
             $table->decimal('incentive')->nullable();
             $table->string('currency_code')->default("PHP");
             $table->text('note')->nullable();
-            $table->status('penalty_name')->nullable();
+            $table->string('status')->nullable();
             $table->dateTimeTz('paid_at')->nullable();
             $table->timestamps();
         });

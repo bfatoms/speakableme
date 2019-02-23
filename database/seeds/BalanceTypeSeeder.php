@@ -13,19 +13,52 @@ class BalanceTypeSeeder extends Seeder
     public function run()
     {
         BalanceType::create([
-            'name' => 'trial'
+            'id' => 1,
+            'name' => 'trial',
+            'class_type_id' => 1
         ]);
 
         BalanceType::create([
-            'name' => 'immortal'
+            'id' => 2,
+            'name' => 'trial',
+            'class_type_id' => 2
         ]);
 
         BalanceType::create([
-            'name' => 'order'
+            'id' => 3,
+            'name' => 'immortal',
+            'class_type_id' => 1
         ]);
 
         BalanceType::create([
-            'name' => 'incentives'
+            'id' => 4,
+            'name' => 'immortal',
+            'class_type_id' => 2
         ]);
+
+        BalanceType::create([
+            'id' => 5,
+            'name' => 'order',
+            'class_type_id' => 1
+        ]);
+
+        BalanceType::create([
+            'id' => 6,
+            'name' => 'order',
+            'class_type_id' => 2
+        ]);
+
+        BalanceType::create([
+            'id' => 7,
+            'name' => 'incentive',
+            'class_type_id' => 1
+        ]);
+
+        BalanceType::create([
+            'id' => 8,
+            'name' => 'incentive',
+            'class_type_id' => 2
+        ]);
+
     }
 }

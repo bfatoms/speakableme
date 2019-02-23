@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 use App\Jobs\SendRegistrationEmail;
 use App\Jobs\SendChangePasswordEmail;
 use App\Models\TeacherAccountType;
+use App\Models\TeacherRate;
+use App\Models\EntityAssignment;
+use App\Models\BaseTeacherRate;
 
 class TeacherController extends Controller
 {
@@ -58,8 +61,8 @@ class TeacherController extends Controller
         );
 
         // send Registration Data to email
-        SendRegistrationEmail::dispatch($email_data['users']->email, $email_data)
-            ->delay(now()->addSeconds(10));
+        SendRegistrationEmail::dispatch($email_data['users']->email, $email_data);
+            // ->delay(now()->addSeconds(10));
 
         SystemLogger::dispatch([
             'actor_id' => (empty(auth()->user())) ? 0: auth()->user()->id,
@@ -68,8 +71,17 @@ class TeacherController extends Controller
             'system_loggable_id' => $data['id'],
             'system_loggable_type' => 'user',
             'data' => json_encode($data)
-        ])
-        ->delay(now()->addSeconds(5));
+        ]);
+        // ->delay(now()->addSeconds(5));
+
+        // automatically create teacher rate for this teacher for each provider
+        $rates = BaseTeacherRate::where('teacher_provider_id', $data->entity_id)->get();
+
+        foreach($rates as $rate)
+        {
+            $new_rate = array_merge($rate->toArray(), ['teacher_id' => $data->id]);
+            TeacherRate::create($new_rate);
+        }
         
         return $this->respond($data, "Teacher Successfully Created!");
     }

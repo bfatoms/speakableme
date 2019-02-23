@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSubjectTeacherRatesTable extends Migration
+class CreateBaseTeacherPenaltiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,18 @@ class CreateSubjectTeacherRatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('subject_teacher_rates', function (Blueprint $table) {
+        Schema::create('base_teacher_penalties', function (Blueprint $table) {
             $table->increments('id');
-            // rate is unique per entity, teacher, and subject
-            $table->char('teacher_id', 36);
+            $table->string('name');
             $table->unsignedInteger('subject_id');
             $table->unsignedInteger('class_type_id');
-            $table->char('entity_id', 36);
+            $table->char('teacher_provider_id', 36);
+            $table->char('student_provider_id', 36);            
             $table->decimal('rate', 10,4);
             $table->string('currency_code')->default("PHP");
-            $table->unique(['entity_id', 'teacher_id', 'subject_id', 'class_type_id'],
-                'entity_teacher_subject_class_type_rate'
-            );
+            $table->unsignedInteger('incur_at')->default(2);
+            $table->unique(['subject_id','class_type_id','teacher_provider_id', 'student_provider_id', 'rate'],
+                "subject_teacher_student_class_type_penalties");
             $table->timestamps();
         });
     }
@@ -36,6 +36,6 @@ class CreateSubjectTeacherRatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subject_teacher_rates');
+        Schema::dropIfExists('base_teacher_penalties');
     }
 }

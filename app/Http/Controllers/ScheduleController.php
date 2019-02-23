@@ -15,12 +15,22 @@ use App\Models\ScheduleTeacherRate;
 
 use App\Jobs\SystemLogger;
 use App\Jobs\SendCancelledScheduleEmail;
+use App\Models\Student;
 
 
 class ScheduleController extends Controller
 {
     public function store()
     {
+        $schedule = Schedule::where('starts_at', Carbon::parse(request('starts_at'))->tz('UTC'))
+            ->where('user_id', request('user_id', auth()->user()->id))
+            ->first();
+
+        if(!empty($schedule))
+        {
+            throw new \Exception("You cannot book same time and hour", 416);
+        }
+
         $data = [
             'starts_at' => request('starts_at'),
             'ends_at' => request('ends_at'),
@@ -31,6 +41,7 @@ class ScheduleController extends Controller
             'class_type_id' => request('class_type_id', ClassType::find(1)->id),
             'min' => request('min', 1),
             'max' => request('max', 1),
+            'teacher_provider_id' => request('teacher_provider_id',auth()->user()->entity_id)
         ];
 
         return $this->respond(Schedule::create($data), "Schedule Successfully Created");
@@ -43,10 +54,13 @@ class ScheduleController extends Controller
 
     public function index()
     {
-        return $this->respond(Schedule::where('user_id', auth()->user()->id)->get(),"Schedule Found");
+        return $this->respond(
+            Schedule::where('user_id', auth()->user()->id)->get(),
+            "Schedule Found"
+        );
     }
 
-    public function returnBalance(Schedule $schedule)
+    public function returnBalance(Schedule $schedule, $book)
     {
         $balance = Balance::find($book->balance_id);
 
@@ -82,8 +96,7 @@ class ScheduleController extends Controller
             foreach($bookings as $book)
             {
                 // return to group balance if the class is type group class
-                $this->returnBalance($schedule);
-
+                $this->returnBalance($schedule, $book);
                 // send notification that the class has been cancelled and balance was returned as non-expiring
                 $student = Student::find($book->user_id);
 
@@ -92,7 +105,7 @@ class ScheduleController extends Controller
                     ['schedule'=> $schedule]
                 );
                 // send Registration Data to email
-                SendCancelledScheduleEmail::dispatch($email['student']->email, $data);
+                SendCancelledScheduleEmail::dispatch($data['student']->email, $data);
             }
         }
         // Incur the highest penalty for teacher
@@ -118,7 +131,7 @@ class ScheduleController extends Controller
             foreach($bookings as $book)
             {
                 // return to group balance if the class is type group class
-                $this->returnBalance($schedule);
+                $this->returnBalbookance($schedule, $book);
 
                 // send notification that the class has been cancelled and balance was returned as non-expiring
                 $student = Student::find($book->user_id);
@@ -128,7 +141,7 @@ class ScheduleController extends Controller
                     ['schedule'=> $schedule]
                 );
                 // send Registration Data to email
-                SendCancelledScheduleEmail::dispatch($email['student']->email, $data);
+                SendCancelledScheduleEmail::dispatch($data['student']->email, $data);
             }
         }
         // set teacher penalty
@@ -175,5 +188,55 @@ class ScheduleController extends Controller
         return $rate;
     }
 
+    public function students($id)
+    {
+        $student_ids = ScheduleBooking::where('schedule_id', $id)->get()->pluck('user_id');
+        
+        $students = Student::whereIn('id', $student_ids)->get();
+        
+        return $this->respond($students);
+    }
+
+    public function availableTeachers($datetime = null)
+    {
+        $datetime = $datetime ? Carbon::parse($datetime)->tz('UTC') : now();
+
+        $datetime->addMinutes(30);
+
+        $provider_id = request('student_provider_id', eid());
+
+        $teachers = Schedule::with('teacher')
+            ->whereBetween('starts_at', [$datetime->format('Y-m-d H:i:s'), $datetime->format("Y-m-d 23:59:00")])
+            ->where('status', 'open')
+            ->whereRaw("(student_provider_id is null or student_provider_id = '$provider_id')")
+            ->get();
+
+        $count = count($teachers);
+        
+        if($count == 0)
+        {
+            return $this->respond([],'No Teachers Found at this moment', 404);
+        }
+        
+        $word = str_plural('Teacher', $count);
+        
+        return $this->respond($teachers->pluck('teacher'), "$count $word Found!");
+    }
+
+    public function availableTeacherSchedule($id, $datetime = null)
+    {
+        // get all teachers available to teach from the given datetime
+        $datetime = Carbon::parse($datetime)->tz('UTC') ?? now();
+
+        $datetime->addMinutes(30);
+
+        $provider_id = request('student_provider_id', eid());
+
+        return Schedule::where('status', 'open')
+            ->where('starts_at', '>=', $datetime->format('Y-m-d H:i:s'))
+            ->where('user_id', $id)
+            ->whereRaw("(student_provider_id is null or student_provider_id = '$provider_id')")
+            ->get();
+    }
 
 }

@@ -11,6 +11,7 @@ class EntityPackage extends Model
 
     protected $fillable = [
         'entity_id',
+        'student_provider_id',
         'class_type_id',
         'name',
         'unit_price',

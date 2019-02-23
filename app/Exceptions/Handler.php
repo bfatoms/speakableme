@@ -47,6 +47,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        return response()->json([
+            'success' => false,
+            'message' => $exception->getMessage()
+        ]);
         $code = $exception->getCode() > 400 ? 500: $$exception->getCode();
 
         if(local())

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Balance extends Model
 {
@@ -19,4 +20,16 @@ class Balance extends Model
         'remaining' => 'integer',
         'total' => 'integer'
     ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'validity'
+    ];
+
+    public function setValidityAttribute($datetime)
+    {
+        $this->attributes['validity'] = Carbon::parse($datetime)->tz('UTC');
+    }
+
 }

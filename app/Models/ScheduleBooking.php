@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+
 class ScheduleBooking extends Model
 {
     use SoftDeletes;
@@ -19,4 +20,9 @@ class ScheduleBooking extends Model
         'actor_id',
         'actor_message',
     ];
+
+    public function schedule()
+    {
+        return $this->belongsTo('App\Models\Schedule', 'schedule_id');
+    }
 }

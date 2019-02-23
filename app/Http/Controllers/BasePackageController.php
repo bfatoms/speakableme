@@ -33,7 +33,15 @@ class BasePackageController extends Controller
     public function index()
     {
         $this->authorize('browse', BasePackage::class);
+
         return $this->respond(BasePackage::where('entity_id', auth()->user()->entity_id)->get());
+    }
+
+    public function providerIndex()
+    {
+        $this->authorize('browse', BasePackage::class);
+
+        return $this->respond(BasePackage::where('student_provider_id', auth()->user()->entity_id)->get());
     }
 
     
