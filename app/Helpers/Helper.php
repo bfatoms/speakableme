@@ -2,6 +2,7 @@
 
 use App\Models\RolePermission;
 use App\Models\Role;
+use Illuminate\Support\Carbon;
 
 if(!function_exists('userEntityCan'))
 {
@@ -79,3 +80,85 @@ if(!function_exists('role'))
             ->first()->id;
     }
 }
+
+if(!function_exists('currentCutOff'))
+{
+    function currentCutOff()
+    {
+        $now = now();
+
+        $s = clone $now;
+        $e = clone $now;
+
+        $start = $s->format('Y-m-1\T00:00:00Z');
+        
+        $end = $e->format('Y-m-15\T23:59:59Z');
+
+        if($now->format('d') > 15)
+        {
+            $start = $s->format('Y-m-16\T00:00:00Z');
+        
+            $end = $e->format('Y-m-t\T23:59:59Z');                
+        }
+
+        return [
+            "start" => $start,
+            "end" => $end
+        ];
+    }
+}
+
+if(!function_exists('getCutOff'))
+{
+    function getCutOff($datetime = null)
+    {
+        $now = $datetime ? Carbon::parse($datetime)->subMonth(1)->addDays(16) :
+            now()->subMonth(1)->addDays(16);
+
+        $s = clone $now;
+        $e = clone $now;
+                
+        $start = $s->format('Y-m-1\T00:00:00Z');
+        
+        $end = $e->format('Y-m-15\T23:59:59Z');
+
+        if($now->format('d') > 15)
+        {
+            $start = $s->format('Y-m-16\T00:00:00Z');
+        
+            $end = $e->format('Y-m-t\T23:59:59Z');                
+        }
+
+        return [
+            "start" => $start,
+            "end" => $end
+        ];
+    }
+}
+
+
+// public static function cutOffStartPrev() {
+//     $now = new \DateTime("now", new \DateTimeZone("UTC"));
+//     $now->sub(new \DateInterval("P1M"));
+//     $now->add(new \DateInterval("P16D"));
+//     $cutoff_start = "";
+//     if($now->format("d") <= 15) {
+//         $cutoff_start = $now->format("Y-m-1 00:00:00");
+//     }else{
+//         $cutoff_start = $now->format("Y-m-16 00:00:00");
+//     }
+//     return $cutoff_start;
+// }
+
+// public static function cutOffEndPrev() {
+//     $now = new \DateTime("now", new \DateTimeZone("UTC"));
+//     $now->sub(new \DateInterval("P1M"));
+//     $now->add(new \DateInterval("P16D"));
+//     $cutoff_end = "";
+//     if($now->format("d") <= 15) {
+//         $cutoff_end = $now->format("Y-m-15 23:59:00");
+//     }else{
+//         $cutoff_end = $now->format("Y-m-t 23:59:00");
+//     }
+//     return $cutoff_end;
+// }

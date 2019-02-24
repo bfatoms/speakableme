@@ -22,29 +22,46 @@ class ScheduleController extends Controller
 {
     public function store()
     {
-        $schedule = Schedule::where('starts_at', Carbon::parse(request('starts_at'))->tz('UTC'))
-            ->where('user_id', request('user_id', auth()->user()->id))
-            ->first();
+        $created = [];
 
-        if(!empty($schedule))
+        $requests = request()->all();
+
+        $session = ClassSession::where('system_name', 'regular')->first();
+
+        $subject = Subject::where('code','english')->first();
+
+        $class_type = ClassType::find(1);
+        // find schedules that you already open that has the same starts_at
+        foreach($requests as $request)
         {
-            throw new \Exception("You cannot book same time and hour", 416);
+            $request = (object) $request;
+
+            $schedule = Schedule::where('starts_at', Carbon::parse($request->starts_at)->tz('UTC'))
+                ->where('user_id', $request->user_id ?? auth()->user()->id)
+                ->first();
+
+            if(!empty($schedule))
+            {
+                continue;
+            }
+
+            $data = [
+                'starts_at' => $request->starts_at,
+                'ends_at' => $request->ends_at,
+                'user_id' => $request->user_id ?? auth()->user()->id,
+                'class_session_id' => $request->session_id ?? $session->id,
+                'status' => $request->status ?? "open",
+                'subject_id' => $request->subject_id ?? $subject->id,
+                'class_type_id' => $request->class_type_id ?? $class_type->id,
+                'min' => $request->min ?? 1,
+                'max' => $request->max ?? 1,
+                'teacher_provider_id' => $request->teacher_provider_id ?? auth()->user()->entity_id
+            ];
+
+            $created[] = Schedule::create($data);
         }
 
-        $data = [
-            'starts_at' => request('starts_at'),
-            'ends_at' => request('ends_at'),
-            'user_id' => request('user_id', auth()->user()->id),
-            'class_session_id' => request('session_id', ClassSession::where('system_name', 'regular')->first()->id),
-            'status' => request('status', "open"),
-            'subject_id' => request('subject_id', Subject::where('code','english')->first()->id),
-            'class_type_id' => request('class_type_id', ClassType::find(1)->id),
-            'min' => request('min', 1),
-            'max' => request('max', 1),
-            'teacher_provider_id' => request('teacher_provider_id',auth()->user()->entity_id)
-        ];
-
-        return $this->respond(Schedule::create($data), "Schedule Successfully Created");
+        return $this->respond($created, "Schedule Successfully Created");
     }
 
     public function show($id)
