@@ -205,11 +205,13 @@ class ScheduleController extends Controller
 
         $provider_id = request('student_provider_id', eid());
 
-        $teachers = Schedule::with('teacher')
+        $teachers = Schedule::with(['teacher' => function($q){
+            $q->select(['id', 'nick', 'avatar']);
+        }])
             ->whereBetween('starts_at', [$datetime->format('Y-m-d H:i:s'), $datetime->format("Y-m-d 23:59:00")])
             ->where('status', 'open')
             ->whereRaw("(student_provider_id is null or student_provider_id = '$provider_id')")
-            ->get();
+            ->get()->pluck('teacher')->unique();
 
         $count = count($teachers);
         
@@ -220,7 +222,7 @@ class ScheduleController extends Controller
         
         $word = str_plural('Teacher', $count);
         
-        return $this->respond($teachers->pluck('teacher'), "$count $word Found!");
+        return $this->respond($teachers, "$count $word Found!");
     }
 
     public function availableTeacherSchedule($id, $datetime = null)
@@ -232,11 +234,11 @@ class ScheduleController extends Controller
 
         $provider_id = request('student_provider_id', eid());
 
-        return Schedule::where('status', 'open')
+        return $this->respond(Schedule::where('status', 'open')
             ->where('starts_at', '>=', $datetime->format('Y-m-d H:i:s'))
             ->where('user_id', $id)
             ->whereRaw("(student_provider_id is null or student_provider_id = '$provider_id')")
-            ->get();
+            ->get());
     }
 
 }

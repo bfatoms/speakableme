@@ -24,6 +24,7 @@ class TeacherController extends Controller
         $this->authorize('create', Teacher::class);
 
         $entity = Entity::find(request('entity_id', auth()->user()->entity_id));
+        dd($entity);
 
         $role = Role::where('entity_id', $entity->id)
             ->where('system_name', 'teacher')
