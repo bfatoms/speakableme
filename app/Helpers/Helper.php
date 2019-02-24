@@ -136,29 +136,3 @@ if(!function_exists('getCutOff'))
     }
 }
 
-
-// public static function cutOffStartPrev() {
-//     $now = new \DateTime("now", new \DateTimeZone("UTC"));
-//     $now->sub(new \DateInterval("P1M"));
-//     $now->add(new \DateInterval("P16D"));
-//     $cutoff_start = "";
-//     if($now->format("d") <= 15) {
-//         $cutoff_start = $now->format("Y-m-1 00:00:00");
-//     }else{
-//         $cutoff_start = $now->format("Y-m-16 00:00:00");
-//     }
-//     return $cutoff_start;
-// }
-
-// public static function cutOffEndPrev() {
-//     $now = new \DateTime("now", new \DateTimeZone("UTC"));
-//     $now->sub(new \DateInterval("P1M"));
-//     $now->add(new \DateInterval("P16D"));
-//     $cutoff_end = "";
-//     if($now->format("d") <= 15) {
-//         $cutoff_end = $now->format("Y-m-15 23:59:00");
-//     }else{
-//         $cutoff_end = $now->format("Y-m-t 23:59:00");
-//     }
-//     return $cutoff_end;
-// }
