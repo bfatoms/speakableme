@@ -153,7 +153,11 @@ Route::group(['middleware' => ['api']], function ($router) {
         // balances
         Route::get('balances', 'BalanceController@index');
 
-
+        // Teacher invoices
+        Route::post('invoices/{any?}', 'InvoiceController@store');
+        Route::post('invoices/{cutoff}/preview', 'InvoiceController@preview');
+        Route::get('invoices', 'InvoiceController@index');
+        
 
 
         Route::get('student/balance', "UserController@getBalance");

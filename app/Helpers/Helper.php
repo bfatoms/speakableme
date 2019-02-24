@@ -90,15 +90,15 @@ if(!function_exists('currentCutOff'))
         $s = clone $now;
         $e = clone $now;
 
-        $start = $s->format('Y-m-1\T00:00:00Z');
+        $start = $s->format('Y-m-1 00:00:00');
         
-        $end = $e->format('Y-m-15\T23:59:59Z');
+        $end = $e->format('Y-m-15 23:59:59');
 
         if($now->format('d') > 15)
         {
-            $start = $s->format('Y-m-16\T00:00:00Z');
+            $start = $s->format('Y-m-16 00:00:00');
         
-            $end = $e->format('Y-m-t\T23:59:59Z');                
+            $end = $e->format('Y-m-t 23:59:59');                
         }
 
         return [
@@ -118,15 +118,15 @@ if(!function_exists('getCutOff'))
         $s = clone $now;
         $e = clone $now;
                 
-        $start = $s->format('Y-m-1\T00:00:00Z');
+        $start = $s->format('Y-m-1 00:00:00');
         
-        $end = $e->format('Y-m-15\T23:59:59Z');
+        $end = $e->format('Y-m-15 23:59:59');
 
         if($now->format('d') > 15)
         {
-            $start = $s->format('Y-m-16\T00:00:00Z');
+            $start = $s->format('Y-m-16 00:00:00');
         
-            $end = $e->format('Y-m-t\T23:59:59Z');                
+            $end = $e->format('Y-m-t 23:59:59');                
         }
 
         return [

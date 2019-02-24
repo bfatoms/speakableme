@@ -11,12 +11,20 @@ use App\Models\EntityPackage;
 use App\Models\Voucher;
 use App\Models\BalanceType;
 use App\Models\Balance;
+use App\Models\Entity;
 
 class OrderController extends Controller
 {
 
     public function index()
     {
+        if( userEntityCan('manage_clients') && can(['do-all', 'browse-order']) )
+        {
+            $entities = Entity::where('managed_by_id', auth()->user()->entity_id )->get(['id']);
+            // student providers you are currently managing
+            return $this->respond(Order::whereIn('student_provider_id', $entities)->get());
+        }
+
         return Order::where('user_id', auth()->user()->id)->get();
     }
 
@@ -92,41 +100,4 @@ class OrderController extends Controller
         return $this->respond($order->refresh(), "Order Successfully Approved!");
     }
 
-    public function storeOld(Request $request)
-    {
-
-        $school = School::find(auth()->user()->school_id);
-        $package = SchoolPackage::find($request->school_package_id);
-
-        if($request->voucher_id != null || $request->voucher_id != "") {
-            $voucher = Voucher::find($request->voucher_id);
-            $voucher->quantity--;
-            $voucher->save();
-            // compute for new prices
-        }
-
-        $total_price = $package->price;
-        if(!empty($request->voucher_id)) {
-            /**TODO: voucher id re compute total price */
-        }
-
-        $order = Order::create([
-            "school_package_id" => $package->id,
-            "student_id"=>auth()->user()->id,
-            "voucher_id" => $request->voucher_id,
-            "order_number" => $school->prefix.rand(10,999).'-'.rand(100000, 999999),
-            "currency" => "USD",
-            "name" => $package->name,
-            "status" => "pending",
-            "remaining_reservation" => $package->number_of_classes,
-            "duration" => $package->duration_in_days,
-            "base_price" => $package->base_price,
-            "additional_price" => $package->additional_price,
-            "discount_price" => $request->discount_price,
-            // original_total_price
-            "total_price" => $total_price,
-        ]);
-
-        return $this->response("Order Successfully Created", $order);
-    }
 }

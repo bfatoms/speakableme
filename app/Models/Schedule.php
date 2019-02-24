@@ -52,4 +52,9 @@ class Schedule extends Model
     {
         return $this->belongsTo('App\Models\Teacher', 'user_id');
     }
+
+    public function teacherRate()
+    {
+        return $this->hasOne('App\Models\ScheduleTeacherRate', 'schedule_id');
+    }
 }

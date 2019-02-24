@@ -14,7 +14,7 @@ class ScheduleBookingController extends Controller
 {
     public function store()
     {
-        $balance = Balance::find(request('balance_id'));
+        $balance = Balance::with('balanceType')->find(request('balance_id'));
         // check balance first
         if(empty($balance) || $balance->remaining === 0)
         {
@@ -30,11 +30,16 @@ class ScheduleBookingController extends Controller
 
         $schedules = Schedule::whereIn('id', $ids)->where('status', 'open')->get()->filter();
         // get his/her balance
-
         $booked = [];
 
         foreach($schedules as $schedule)
         {
+            // if class_type_id of balance and schedule is not the same do not book!!
+            if($balance->balanceType->class_type_id != $schedule->class_type_id)
+            {
+                continue;
+            }
+
             // before anything check if you already booked this class, skip if you did
             $previously_booked = ScheduleBooking::where('schedule_id', $schedule->id)
                 ->where('user_id', request('student_id',auth()->user()->id))
@@ -46,6 +51,7 @@ class ScheduleBookingController extends Controller
             }
             
             $bookings = ScheduleBooking::where('schedule_id', $schedule->id)->get();
+
             //book this schedule
             if(count($bookings) < $schedule->max)
             {
@@ -62,13 +68,7 @@ class ScheduleBookingController extends Controller
                 $booked[] = $book_schedule;
             }
 
-            $bookings->fresh();
-            // if its already full mark it as booked
-            if(count($bookings) >= $schedule->max)
-            {
-                $schedule->status = 'booked';
-                $schedule->save();
-            }
+            $this->setFullyBooked($schedule);
             // create the schedule
             $this->createTeacherRate($schedule);
             // if balance is 0 break the operation
@@ -80,10 +80,24 @@ class ScheduleBookingController extends Controller
 
         if(empty($booked))
         {
-            throw new \Exception(__("You've booked this class, or already fully-booked."), 424);
+            throw new \Exception(__("Class Booked, fully-booked, or Balance is not for this class"), 424);
         }
 
         return $this->respond($booked, "Successfully Booked");
+    }
+
+    public function setFullyBooked($schedule)
+    {
+        $bookings = ScheduleBooking::where('schedule_id', $schedule->id)->get();
+        // if its already full mark it as booked
+        if(count($bookings) >= $schedule->max)
+        {
+            $schedule->status = 'booked';
+
+            $schedule->save();
+        }
+
+        return $schedule;
     }
 
     public function bookSchedule($schedule, $balance)
@@ -140,7 +154,6 @@ class ScheduleBookingController extends Controller
             // mark each student as absent if all students are absent close
             // the class and pay teacher half of the price
             $student = ScheduleBooking::find($id);
-
         }
 
         // close the schedule

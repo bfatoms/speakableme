@@ -45,8 +45,8 @@ class StudentRemarkController extends Controller
             ->delay(now()->addSeconds(5));
 
             // also close the schedule
-            $closed = Schedule::find(request('schedule_id'))->update([
-                'status' => 'completed'
+            Schedule::find(request('schedule_id'))->update([
+                'status' => 'completed',
             ]);
         }
         

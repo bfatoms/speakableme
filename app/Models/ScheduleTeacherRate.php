@@ -15,7 +15,8 @@ class ScheduleTeacherRate extends Model
         'teacher_id',
         'schedule_id',
         'paid_at',
-        'currency_code'
+        'currency_code',
+        'invoice_id'
     ];
 
     protected $dates = [

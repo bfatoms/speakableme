@@ -32,4 +32,9 @@ class Balance extends Model
         $this->attributes['validity'] = Carbon::parse($datetime)->tz('UTC');
     }
 
+    public function balanceType()
+    {
+        return $this->belongsTo('App\Models\BalanceType', 'balance_type_id');
+    }
+
 }
