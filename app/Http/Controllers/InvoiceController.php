@@ -144,4 +144,38 @@ class InvoiceController extends Controller
 
         return $this->respond($invoices);
     }
+
+    public function compute($id)
+    {
+        $schedule_teacher_rate = ScheduleTeacherRate::where('invoice_id', $id)
+            ->get();
+
+        $fee = $schedule_teacher_rate->sum('fee');
+
+        $penalty = $schedule_teacher_rate->sum('penalty');
+
+        $incentive = $schedule_teacher_rate->sum('incentive');
+
+        Invoice::where('id', $id)->whereNull('paid_at')
+            ->update([
+                'fee' => $fee,
+                'penalty' => $penalty,
+                'incentive' => $incentive,
+                'total' => ($fee + $incentive) - $penalty,
+            ]);
+
+        return $this->respond(Invoice::find($id), "Successfully Recomputed..");
+    }
+
+    public function paid($id)
+    {
+        $invoice = Invoice::findOrFail($id);
+        
+        $invoice->update([
+            'paid_at' => now(),
+            'status' => 'paid'
+        ]);
+        
+        return $this->respond($invoice->fresh(), "Successfully set as Paid");
+    }
 }

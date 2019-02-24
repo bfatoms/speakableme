@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
-class ScheduleTeacherRate extends Model
+class InvoiceItem extends Model
 {
+    protected $table = 'schedule_teacher_rates';
     protected $fillable = [
         'fee',
         'penalty',

@@ -155,7 +155,10 @@ Route::group(['middleware' => ['api']], function ($router) {
 
         // Teacher invoices
         Route::post('invoices/{any?}', 'InvoiceController@store');
-        Route::post('invoices/{cutoff}/preview', 'InvoiceController@preview');
+        Route::post('invoices/{any}/preview', 'InvoiceController@preview');
+        Route::put('invoices/{id}/compute', 'InvoiceController@compute');
+        Route::put('invoices/{id}/paid', 'InvoiceController@paid');
+        
         Route::get('invoices', 'InvoiceController@index');
         
 
