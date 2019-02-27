@@ -16,6 +16,7 @@ use App\Models\ScheduleTeacherRate;
 use App\Jobs\SystemLogger;
 use App\Jobs\SendCancelledScheduleEmail;
 use App\Models\Student;
+use App\Models\BaseTeacherPenalty;
 
 
 class ScheduleController extends Controller
@@ -77,28 +78,49 @@ class ScheduleController extends Controller
         );
     }
 
-    public function returnBalance(Schedule $schedule, $book)
+    public function returnBalance(Schedule $schedule, $book, $immortal = false)
     {
         $balance = Balance::find($book->balance_id);
-
-        if($schedule->class_type_id === 1)
+        // if return as immortal, find the balance type that belongs to this user, based on class Type
+        if($immortal === true)
         {
-            $balance = Balance::where('schedule_id', $schedule->id)
-                ->where('balance_type_id', 2)
+            $balance_type = BalanceType::where('class_type_id', $schedule->class_type_id)
+                ->where('name', 'immortal')
                 ->first();
+
+            $balance = Balance::where('balance_type_id', $balance_type->id)
+                ->where('user_id', $book->user_id)
+                ->first();
+            // if immortal balance doesn't exist create it, and use that for addition
+            if(empty($balance))
+            {
+                $balance = Balance::create([
+                    'total' => 0,
+                    'remaining' => 0,
+                    'user_id' => $book->user_id,
+                    'balance_type_id' => $balance_type->id
+                ]);
+            }
         }
 
         $balance->remaining++;
 
         $balance->save();
+
+        return $balance;
     }
 
     public function absent($id)
     {
         $schedule = Schedule::find($id);
+        // if schedule is already cancelled return error
+        if($schedule->status != "booked")
+        {
+            return $this->respond([], 'Class has been cancelled..',403);
+        }
         // close the schedule
         $absent = $schedule->update([
-            'status' => 'closed',
+            'status' => 'cancelled',
             'absence_reason' => request('absence_reason'),
             'is_teacher_absent' => true,
             'actor_id' => auth()->user()->id,
@@ -112,8 +134,8 @@ class ScheduleController extends Controller
 
             foreach($bookings as $book)
             {
-                // return to group balance if the class is type group class
-                $this->returnBalance($schedule, $book);
+                // return to balance if the class is type group class
+                $this->returnBalance($schedule, $book, true);
                 // send notification that the class has been cancelled and balance was returned as non-expiring
                 $student = Student::find($book->user_id);
 
@@ -126,7 +148,7 @@ class ScheduleController extends Controller
             }
         }
         // Incur the highest penalty for teacher
-        $this->setTeacherPenalty($schedule, config('speakable.penalty3'), "Penalty 3 for being absent");
+        $this->setTeacherPenalty($schedule);
         
         return $this->respond($schedule->refresh());
     }
@@ -134,13 +156,18 @@ class ScheduleController extends Controller
     public function cancel($id)
     {
         $schedule = Schedule::find($id);
+        // if schedule is already cancelled return error
+        if($schedule->status != "booked")
+        {
+            return $this->respond([], 'Class has been cancelled..',403);
+        }
         // close the schedule
-        $absent = $schedule->update([
-            'status' => 'closed',
+        $cancel = $schedule->update([
+            'status' => 'cancelled',
             'absence_reason' => request('absence_reason')
         ]);
         // if teacher is absent return the balance as immortal (non-expiring)..
-        if($absent)
+        if($cancel)
         {
             // find the balance_type for immortal
             $bookings = ScheduleBooking::where('schedule_id', $schedule->id)->get();
@@ -148,7 +175,7 @@ class ScheduleController extends Controller
             foreach($bookings as $book)
             {
                 // return to group balance if the class is type group class
-                $this->returnBalbookance($schedule, $book);
+                $this->returnBalance($schedule, $book);
 
                 // send notification that the class has been cancelled and balance was returned as non-expiring
                 $student = Student::find($book->user_id);
@@ -162,45 +189,49 @@ class ScheduleController extends Controller
             }
         }
         // set teacher penalty
-        $this->setTeacherPenalty($schedule);
+        $this->setTeacherPenalty($schedule, 'cancelling');
 
         return $this->respond($schedule->refresh());   
     }
 
-    public function setTeacherPenalty(Schedule $schedule, $penalty = null, $note = null)
+    public function setTeacherPenalty(Schedule $schedule, $name = 'absent')
     {
-        if(empty($penalty))
+        // get all penalties for teacher
+        $penalties = BaseTeacherPenalty::where('teacher_provider_id', $schedule->teacher_provider_id)
+            ->where('student_provider_id', $schedule->student_provider_id)
+            ->where('class_type_id', $schedule->class_type_id)
+            ->orderBy('rate', 'desc')
+            ->get();
+
+        $penalty_rate = $penalties->max('rate');
+
+        $note = "Incurred ".$penalties->first()->name." for being ".$name.".";
+
+        // get penalty based on hour
+        if($name === 'cancelling')
         {
             // check if the dates are more than 
             $starts_at = Carbon::parse($schedule->starts_at);
             // if 2 hrs before class start penalty
             $now = now();
 
-            $penalty = config('speakable.penalty1');
-            $note = "\nIncurred penalty 2 for cancelling a schedule.";
-
-            if($starts_at->diffInHours($now) < 4)
+            foreach($penalties as $penalty)
             {
-                $penalty = config('speakable.penalty2');
-                $note = "\nIncurred penalty 2 for cancelling a schedule.";
+                if($starts_at->diffInHours($now) > $penalty->incur_at)
+                {
+                    $penalty_rate = $penalty->rate;
+
+                    $note = "Incurred ".$penalty->name." for ".$name." schedule.";
+                }
             }
 
-            if($starts_at->diffInHours($now) < 2)
-            {
-                $penalty = config('speakable.penalty3');
-                $note = "\nIncurred penalty 3 for cancelling a schedule.";
-            }
         }
 
-        $rate = ScheduleTeacherRate::where('schedule_id', $schedule->id)->first();
-
-        $rate->penalty = $penalty;
-
-        $rate->fee = null;
-
-        $rate->note .= "\n".$note;
-
-        $rate->save();
+        $rate = ScheduleTeacherRate::where('schedule_id', $schedule->id)->update([
+            'penalty' => $penalty_rate,
+            'fee' => null,
+            'note' => "$note",
+        ]);
 
         return $rate;
     }

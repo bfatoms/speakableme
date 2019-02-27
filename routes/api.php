@@ -113,6 +113,12 @@ Route::group(['middleware' => ['api']], function ($router) {
         // mark student as absent
         Route::post('schedules/{id}/absent', 'ScheduleBookingController@absent');
 
+        // Teacher cancel class or notify as absent 
+        Route::put('schedules/{id}/cancel', 'ScheduleController@cancel');
+
+        // Student cancel class
+        Route::put('schedules/{id}/cancel/booking', 'ScheduleBookingController@cancel');
+
         // book a schedule
         Route::post('schedule-bookings', 'ScheduleBookingController@store');
 

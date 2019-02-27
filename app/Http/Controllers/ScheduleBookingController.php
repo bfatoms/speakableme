@@ -153,43 +153,83 @@ class ScheduleBookingController extends Controller
         {
             // mark each student as absent if all students are absent close
             // the class and pay teacher half of the price
-            $student = ScheduleBooking::find($id);
-        }
+            $booking = ScheduleBooking::find($id);
 
-        // close the schedule
-        $absent = $schedule->update([
-            'status' => 'closed',
-            'absence_reason' => request('absence_reason'),
-            'is_teacher_absent' => true,
-            'actor_id' => auth()->user()->id,
-            'actor_message' => $schedule->actor_message . "\n" . auth()->user()->id
-        ]);
-        // if teacher is absent return the balance as immortal (non-expiring)..
-        if($absent)
+            $booking->absence_reason = $student->absence_reason ?? null;
+            
+            $booking->delete();
+        }
+        // now get all users who booked the schedule
+        $bookings = ScheduleBooking::where('schedule_id', $schedule->id)->get();
+        
+        $total_bookings = count($bookings) ?? 0;
+        
+        if($total_bookings < $schedule->min)
         {
-            // find the balance_type for immortal
-            $bookings = ScheduleBooking::where('schedule_id', $schedule->id)->get();
-
-            foreach($bookings as $book)
+            if($schedule->class_type_id == 2)
             {
-                // return to group balance if the class is type group class
-                $this->returnBalance($schedule);
+                // dissolve class and return the balance of the remaining students who were not absent
+                $schedule->update([
+                    'status' => 'closed',
+                    'actor_id' => auth()->user()->id,
+                    'actor_message' => "Class has been dissolved automatically for failing to meet minimum number of students"
+                ]);
 
-                // send notification that the class has been cancelled and balance was returned as non-expiring
-                $student = Student::find($book->user_id);
-
-                $data = array_merge(
-                    ['student' => $student],
-                    ['schedule'=> $schedule]
-                );
-                // send Registration Data to email
-                SendCancelledScheduleEmail::dispatch($data['student']->email, $data);
+                foreach($bookings as $booking)
+                {
+                    $this->returnBalance();
+                }
             }
+            else
+            {
+                $this->setTeacherFeeToHalf($schedule);
+            }
+
         }
-        // Incur the highest penalty for teacher
-        $this->setTeacherPenalty($schedule, config('speakable.penalty3'), "Penalty 3 for being absent");
+
+        $this->setTeacherFeeToHalf($schedule);
         
         return $this->respond($schedule->refresh());
+    }
+
+    public function setTeacherFeeToHalf(Schedule $schedule)
+    {
+        return $schedule;
+    }
+
+    public function cancel($id)
+    {
+        // BL: a student can only cancel a class 2 hrs before class time
+        $now = now();
+        
+        $schedule = Schedule::find($id);
+        
+        $starts_at = Carbon::parse($schedule->starts_at);
+        
+        if($starts_at->diffInHours($now) < 2)
+        {
+            return $this->respond([], 'You cannot cancel this class anymore', 403);
+        }
+        // cancel current booking
+        $booking = ScheduleBooking::where('schedule_id', $schedule)
+            ->where('user_id', request('user_id', auth()->user()->id))
+            ->first();
+
+        // remove this users booking from forceDelete
+        $booking->delete();
+
+        // re open class,
+        if($schedule->status === 'booked')
+        {
+            $schedule->status = 'open';
+        
+        }
+
+        $schedule->save();
+
+        // send notification to teacher that his student cancelled the class, and that the schedule has been opened again
+
+        return $schedule;
     }
 
 }

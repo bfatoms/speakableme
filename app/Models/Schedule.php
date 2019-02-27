@@ -33,6 +33,14 @@ class Schedule extends Model
         'ends_at'
     ];
 
+    protected $statuses = [
+        'open', // class is currently open
+        'booked', // class is booked, for group class booked if max has been reached
+        'completed', // class is completed with no issues, fee computation is based on this
+        'cancelled', // teacher is absent, student is absent, fee and penalty is based on this
+        'closed' // class is dissolved or student cancelled early..
+    ];
+
     public function setStartsAtAttribute($datetime)
     {
         $this->attributes['starts_at'] = Carbon::parse($datetime)->tz('UTC');

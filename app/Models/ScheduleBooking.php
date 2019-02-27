@@ -19,6 +19,14 @@ class ScheduleBooking extends Model
         'absence_reason',
         'actor_id',
         'actor_message',
+        'status'
+    ];
+
+    protected $statuses = [
+        'complete', // completed schedules
+        'penalty', // any kind of penalty
+        'delay', // lesson memo delay
+        'closed', // dissolved classes
     ];
 
     public function schedule()

@@ -24,7 +24,6 @@ class TeacherController extends Controller
         $this->authorize('create', Teacher::class);
 
         $entity = Entity::find(request('entity_id', auth()->user()->entity_id));
-        dd($entity);
 
         $role = Role::where('entity_id', $entity->id)
             ->where('system_name', 'teacher')
@@ -133,7 +132,9 @@ class TeacherController extends Controller
     public function index()
     {
         $this->authorize('browse', Teacher::class);
-        return $this->respond(Teacher::where('entity_id', eid())->where('role_id', role('teacher'))->get());
+        return $this->respond(Teacher::where('entity_id', eid())
+            ->where('role_id', role('teacher'))
+            ->get());
     }
 
     public function show($id)
