@@ -12,10 +12,10 @@
         "barryvdh/laravel-cors": "^0.11.2",
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "^4.0",
-        "laravel/framework": "5.7.*",
+        "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
         "tucker-eric/eloquentfilter": "^1.4",
-        "tymon/jwt-auth": "1.0.0-rc.3"
+        "tymon/jwt-auth": "^1.0.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -23,7 +23,7 @@
         "fzaninotto/faker": "^1.4",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^2.0",
-        "phpunit/phpunit": "^7.0"
+        "phpunit/phpunit": "^8.0"
     },
     "config": {
         "optimize-autoloader": true,

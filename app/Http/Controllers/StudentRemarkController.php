@@ -44,10 +44,23 @@ class StudentRemarkController extends Controller
             ])
             ->delay(now()->addSeconds(5));
 
-            // also close the schedule
-            Schedule::find(request('schedule_id'))->update([
-                'status' => 'completed',
-            ]);
+            $schedule = Schedule::find(request('schedule_id'));
+            if($schedule->status === "booked")
+            {
+                // also close the schedule
+                $schedule->update([
+                    'status' => 'completed',
+                ]);
+            }
+
+            if(now()->diffInHours($schedule->starts_at) > 2)
+            {
+                // check if teacher has submitted lesson memo beyond 2 hrs he/she will include a penalty
+                ScheduleTeacherRate::where('schedule_id', request('schedule_id'))->update([
+                    'penalty' => 35,
+                    'note' => 'lesson memo delay, exceeded 2 hours'
+                ]);
+            }
         }
         
         return $this->respond($created, "Remark Successfully added..");
