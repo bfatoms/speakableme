@@ -6,6 +6,7 @@ use App\Http\Requests\LoginRequest;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Exceptions\ApiException;
 
 class AuthController extends Controller
 {
@@ -32,7 +33,7 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
-            throw new \Exception("UNAUTHORIZED_USER", 401);
+            throw new ApiException("UNAUTHORIZED_USER", 401);
         }
    
         $data = array_merge(
@@ -80,7 +81,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        auth()->invalidate();
+        auth()->logout(true);
         return $this->respond([],"SUCCESSFUL_LOG_OUT");
     }
 
