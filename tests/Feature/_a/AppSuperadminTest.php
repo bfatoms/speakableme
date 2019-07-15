@@ -51,9 +51,8 @@ class AppSuperadminTest extends TestCase
 
         $response->assertStatus(200)
             ->assertSeeText('access_token');
-        // ->assertSeeText(self::$email)
-        // ->assertSeeText("access_token");
-
+        
+        self::$user['token'] = $response->original['result'];
     }
 
     public function testSuperAdminCanLogout()
@@ -65,12 +64,13 @@ class AppSuperadminTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testSuperAdminCannotGetInfoDueToLogout()
+    public function testSuperAdminCannotRequestResources()
     {
-        $response = $this->json('GET', 'api/auth/me', [],[
+        $response = $this->json('GET', 'api/auth/me',[],[
             'Authorization' => 'Bearer '. self::$user['token']['access_token']
         ]);
-        $response->assertStatus(200);
+
+        $response->assertStatus(401);
     }
 
 }

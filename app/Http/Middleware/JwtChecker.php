@@ -3,9 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
-use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
-use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Exceptions\ApiException;
 
 class JwtChecker
 {
@@ -19,7 +17,7 @@ class JwtChecker
     public function handle($request, Closure $next)
     {
         if(!auth()->check()){
-            throw new \Exception("Token Expired, Missing or Blacklisted", 401);
+            throw new ApiException("Token Expired, Missing or Blacklisted", 401);
         }
         
         return $next($request);

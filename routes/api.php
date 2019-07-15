@@ -27,7 +27,7 @@ Route::group(['middleware' => ['api']], function () {
         Route::post('refresh', 'AuthController@refresh');
         Route::put('force-change-password/{email}', 'AuthController@forceChangePassword');
 
-        Route::group(['middleware'=>'jwtchecker'], function(){
+        Route::group(['middleware'=>'jwt.auth'], function(){
             Route::post('logout', 'AuthController@logout');
             Route::get('me', 'AuthController@me');
         });

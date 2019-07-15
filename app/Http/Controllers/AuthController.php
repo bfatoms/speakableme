@@ -7,9 +7,6 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Exceptions\ApiException;
-use Illuminate\Http\Request;
-use Tymon\JWTAuth\JWT;
-use Tymon\JWTAuth\Payload;
 
 class AuthController extends Controller
 {
@@ -64,6 +61,7 @@ class AuthController extends Controller
 
         $reflect = new \ReflectionClass('App\Models\\' . ucfirst($role->system_name));
         $class = $reflect->newInstance();
+
         return $class::find(auth()->user()->id);
     }
 
@@ -74,6 +72,7 @@ class AuthController extends Controller
      */
     public function me()
     {
+        dd(auth()->user());
         return $this->respond($this->getUser(), "OK");   
     }
 
@@ -84,8 +83,12 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        auth()->logout(true);
-        return $this->respond([],"SUCCESSFUL_LOG_OUT");
+        auth()->invalidate(true);
+        return $this->respond([],'SUCCESSFUL_LOG_OUT');
+        // if(auth()->logout(true))
+        // {
+        //     return $this->respond([],"SUCCESSFUL_LOG_OUT");
+        // }
     }
 
     /**
