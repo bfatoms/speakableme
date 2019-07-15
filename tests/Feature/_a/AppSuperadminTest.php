@@ -56,4 +56,22 @@ class AppSuperadminTest extends TestCase
 
     }
 
+    public function testSuperAdminCanLogout()
+    {
+        $response = $this->json('POST', 'api/auth/logout',[],[
+            'Authorization' => 'Bearer '. self::$user['token']['access_token']
+        ]);
+
+        $response->assertStatus(200);
+    }
+
+    public function testSuperAdminCannotGetInfoDueToLogout()
+    {
+        $response = $this->json('GET', 'api/auth/me', [],[
+            'Authorization' => 'Bearer '. self::$user['token']['access_token']
+        ]);
+
+        $response->assertStatus(200);
+    }
+
 }

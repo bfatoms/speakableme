@@ -81,6 +81,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
+        // auth()->parseToken()->invalidate();
         auth()->logout(true);
         return $this->respond([],"SUCCESSFUL_LOG_OUT");
     }
