@@ -62,6 +62,14 @@ if(!function_exists('local'))
     }
 }
 
+if(!function_exists('testing'))
+{
+    function testing()
+    {
+        return (config('app.env') === 'testing');
+    }
+}
+
 
 if(!function_exists('eid'))
 {

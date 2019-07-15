@@ -3,8 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\User;
-use App\Models\RolePermission;
 
 
 class LoginRequest extends FormRequest
@@ -16,11 +14,7 @@ class LoginRequest extends FormRequest
      */
     public function authorize()
     {
-        $user = User::where('email',request('email'))->first();
-
-        $role = (!empty(RolePermission::where('role_id', $user->role_id)
-            ->whereIn('permission_id', ['login','do-all'])->first())) ? true:false;
-        return $role;
+        return true;
     }
 
     /**
@@ -31,14 +25,16 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'email' => 'required',
+            'password' => 'required'
         ];
     }
 
     public function messages()
     {
         return [
-
+            'password.required' => 'Password is required',
+            'email.required' => 'Email is required'
         ];
     }
 }

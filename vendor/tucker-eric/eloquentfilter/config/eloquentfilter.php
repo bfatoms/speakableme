@@ -25,4 +25,15 @@ return [
 //    'generator' => [
 //        'stub' => app_path('stubs/modelfilter.stub')
 //    ]
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default Paginator Limit For `paginateFilter` and `simplePaginateFilter`
+    |--------------------------------------------------------------------------
+    |
+    | Set paginate limit
+    |
+    */
+    'paginate_limit' => env('PAGINATION_LIMIT_DEFAULT',15)
+
 ];

@@ -11,9 +11,9 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function respond($result, $message="", $code=null)
+    public function respond($result, $message="", $code=200)
     {
-        $code = $code ?? http_response_code($code);
+        $code = $code ?? http_response_code(http_status_code() ?? $code);
 
         return response()->json([
             'success' => ($code > 230) ? false:true,

@@ -4,16 +4,12 @@ namespace App\Observers;
 use App\Models\Entity;
 use App\Models\Role;
 use App\Models\RolePermission;
-use App\Models\Permission;
 use Illuminate\Support\Str;
 use App\Models\User;
-use App\Models\SystemLog;
 use App\Jobs\SystemLogger;
 
 use Illuminate\Support\Facades\Hash;
 use App\Jobs\SendRegistrationEmail;
-
-use App\Events\UserRegisteredEvent;
 
 class EntityObserver
 {
@@ -98,6 +94,8 @@ class EntityObserver
             ['entity' => $entity],
             ['password'=> $password]
         );
+
+        \Log::debug("login:", $email_data);
         
         // send Registration Data to email
         SendRegistrationEmail::dispatch($email_data['users']->email, $email_data)

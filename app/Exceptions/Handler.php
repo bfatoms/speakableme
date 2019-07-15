@@ -47,18 +47,14 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return response()->json([
-            'success' => false,
-            'message' => $exception->getMessage()
-        ]);
-        $code = $exception->getCode() > 400 ? 500: $$exception->getCode();
-
-        if(local())
+        // return parent::render($request, $exception);
+        
+        if(local() || testing())
         {
             return response()->json([
                 'success' => false,
                 'message' => $exception->getMessage()
-            ],$code);
+            ], $exception->getCode());
         }
 
         $debug_code = str_random(18);
@@ -68,7 +64,7 @@ class Handler extends ExceptionHandler
         return response()->json([
             'success' => false,
             'message' => 'Something Went Wrong, Contact The Site Administrator and send this code: '. $debug_code,
-        ]);
+        ], $exception->getCode());
 
     }
 }

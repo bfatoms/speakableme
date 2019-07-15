@@ -18,13 +18,14 @@ use Illuminate\Support\Carbon;
 //     return $request->user();
 // });
 
-Route::group(['middleware' => ['api']], function ($router) {
+Route::group(['middleware' => ['api']], function () {
 
     Route::get('/', 'HomeController@ok');
 
     Route::group(['prefix' => 'auth'], function(){
         Route::post('login', 'AuthController@login');
         Route::post('refresh', 'AuthController@refresh');
+        Route::put('force-change-password/{email}', 'AuthController@forceChangePassword');
 
         Route::group(['middleware'=>'jwtchecker'], function(){
             Route::post('logout', 'AuthController@logout');

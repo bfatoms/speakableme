@@ -1,15 +1,11 @@
 <?php
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use PHPUnit\Framework\MockObject\Stub\Exception;
-use Illuminate\Http\Request;
-use Spatie\QueryBuilder\QueryBuilder;
-use App\Models\Student;
-use App\Models\User;
 use App\Http\Requests\LoginRequest;
 use App\Models\Role;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -22,7 +18,7 @@ class AuthController extends Controller
     public function __construct()
     {
         // $this->roles = config('app.roles');
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login','forceChangePassword']]);
     }
 
     /**
@@ -38,8 +34,7 @@ class AuthController extends Controller
         if (! $token = auth()->attempt($credentials)) {
             throw new \Exception("Unauthorized User", 401);
         }
-
-        
+   
         $data = array_merge(
             ["token" => $this->getToken($token) ],
             ["user" => $this->getUser()->toArray() ]
@@ -115,5 +110,17 @@ class AuthController extends Controller
         ];
     }
 
+    public function forceChangePassword()
+    {
+        if(request('superadmin') == true){
+            $email = request('email');
+            $user = User::where('email', $email)->firstOrFail();
+            $user->password = Hash::make(request('new_password'));
+            $user->save();
+            return $this->respond([],"SUCCESS_FORCE_PASSWORD_CHANGE");
+        }
+
+        return $this->respond([], "Unauthorized To Force Change Password", 401);
+    }
 
 }
