@@ -7,6 +7,9 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Exceptions\ApiException;
+use Illuminate\Http\Request;
+use Tymon\JWTAuth\JWT;
+use Tymon\JWTAuth\Payload;
 
 class AuthController extends Controller
 {
@@ -81,7 +84,6 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        // auth()->parseToken()->invalidate();
         auth()->logout(true);
         return $this->respond([],"SUCCESSFUL_LOG_OUT");
     }

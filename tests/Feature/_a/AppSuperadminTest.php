@@ -70,7 +70,6 @@ class AppSuperadminTest extends TestCase
         $response = $this->json('GET', 'api/auth/me', [],[
             'Authorization' => 'Bearer '. self::$user['token']['access_token']
         ]);
-
         $response->assertStatus(200);
     }
 
