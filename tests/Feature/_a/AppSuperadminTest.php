@@ -6,14 +6,17 @@ use Tests\TestCase;
 
 class AppSuperadminTest extends TestCase
 {
+    public static $email = "forondalouie@gmail.com";
+    public static $user = [];
     public function testSuperAdminCantLogin()
     {
         $response = $this->post("api/auth/login",[
-            "email" => "forondalouie@gmail.com",
+            "email" => self::$email,
             "password" => "qwesad"
         ]);
 
-        $response->assertStatus(401);
+        $response->assertStatus(401)
+            ->assertSeeText("UNAUTHORIZED_USER");
     }
 
     public function testSuperAdminCanForceChangePassword()
@@ -23,18 +26,34 @@ class AppSuperadminTest extends TestCase
         ]);
         
         $response->assertStatus(200)
-            ->assertSeeText("SUCCESS_FORCE_PASSWORD_CHANGE");
+            ->assertSeeText("SUCCESSFUL_FORCE_PASSWORD_CHANGE");
     }
 
     public function testSuperAdminCanLogin(){
         $response = $this->json("POST","api/auth/login",[
-            "email" => "forondalouie@gmail.com",
+            "email" => self::$email,
             "password" => "qweasd"
         ]);
-        
+
         $response->assertStatus(200)
-        ->assertSeeText("forondalouie@gmail.com")
+        ->assertSeeText(self::$email)
         ->assertSeeText("access_token");
+
+        self::$user = $response->original['result'];
+
+    }
+
+    public function testSuperAdminCanRefreshToken()
+    {
+        $response = $this->json("POST","api/auth/refresh",[],[
+            'Authorization' => 'Bearer '. self::$user['token']['access_token']
+        ]);
+
+        $response->assertStatus(200)
+            ->assertSeeText('access_token');
+        // ->assertSeeText(self::$email)
+        // ->assertSeeText("access_token");
+
     }
 
 }

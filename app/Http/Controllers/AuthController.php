@@ -32,7 +32,7 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
-            throw new \Exception("Unauthorized User", 401);
+            throw new \Exception("UNAUTHORIZED_USER", 401);
         }
    
         $data = array_merge(
@@ -40,7 +40,7 @@ class AuthController extends Controller
             ["user" => $this->getUser()->toArray() ]
         );
 
-        return $this->respond($data, "Logged in successfully!");
+        return $this->respond($data, "SUCCESSFUL_LOG_IN");
     }
 
     public function getUser()
@@ -81,7 +81,7 @@ class AuthController extends Controller
     public function logout()
     {
         auth()->invalidate();
-        return $this->respond([],"Successfuly Logged Out");
+        return $this->respond([],"SUCCESSFUL_LOG_OUT");
     }
 
     /**
@@ -91,7 +91,7 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->respond(auth()->refresh());
+        return $this->respond($this->getToken(auth()->refresh(true, true)),"SUCCESSFUL_TOKEN_REFRESH");
     }
 
     /**
@@ -117,10 +117,10 @@ class AuthController extends Controller
             $user = User::where('email', $email)->firstOrFail();
             $user->password = Hash::make(request('new_password'));
             $user->save();
-            return $this->respond([],"SUCCESS_FORCE_PASSWORD_CHANGE");
+            return $this->respond([],"SUCCESSFUL_FORCE_PASSWORD_CHANGE");
         }
 
-        return $this->respond([], "Unauthorized To Force Change Password", 401);
+        return $this->respond([], "UNAUTHORIZED_USER", 401);
     }
 
 }
